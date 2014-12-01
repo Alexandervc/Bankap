@@ -23,8 +23,10 @@ public class IBankTest {
     IBank bank;
     IKlant klant1;
     IKlant klant2;
-    Rekening rek1;
-    Rekening rek2;
+    IRekening rek1;
+    IRekening rek2;
+    int reknr1;
+    int reknr2;
     
     public IBankTest() {
     }
@@ -42,12 +44,12 @@ public class IBankTest {
         bank = new Bank("MAMBank");
         
         klant1 = new Klant("Trixy", "Lutjebroek");
-        Money mon1 = new Money(50000, "euro");
-        rek1 = new Rekening(1, klant1, mon1);
+        reknr1 = bank.openRekening("Trixy", "Lutjebroek");
+        rek1 = bank.getRekening(reknr1);
         
         klant2 = new Klant("Loesje", "Lampegat");
-        Money mon2 = new Money(120000, "euro");
-        rek2 = new Rekening(2, klant2, mon2);
+        reknr2 = bank.openRekening("Loesje", "Lampegat");
+        rek2 = bank.getRekening(reknr2);
     }
     
     @After
@@ -88,8 +90,10 @@ public class IBankTest {
 //     * er wordt bedrag overgemaakt van de bankrekening met nummer bron naar de
 //     * bankrekening met nummer bestemming, mits het afschrijven van het bedrag
 //     * van de rekening met nr bron niet lager wordt dan de kredietlimiet van deze
-//     * rekening 
-//     * 
+//     * rekening         
+        
+        Money bedrag = new Money(1200, Money.EURO);
+        
 //     * @param bron
 //     * @param bestemming
 //     *            ongelijk aan bron
@@ -98,6 +102,67 @@ public class IBankTest {
 //     * @return <b>true</b> als de overmaking is gelukt, anders <b>false</b>
 //     * @throws NumberDoesntExistException
 //     *             als een van de twee bankrekeningnummers onbekend is
+        
+        //geldige waarden        
+        boolean gelukt = bank.maakOver(reknr1, reknr2, bedrag);
+        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo().getCents());
+        assertEquals("Overmaken mislukt", true, gelukt);
+        
+        //dezelfde bestemming      
+        gelukt = bank.maakOver(reknr1, reknr1, bedrag);
+        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
+        assertEquals("Overmaken wel gelukt", false, gelukt);
+        
+        //bedrag is 0
+        bedrag = new Money(0, Money.EURO);
+        gelukt = bank.maakOver(reknr1, reknr2, bedrag);
+        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
+        assertEquals("Overmaken wel gelukt", false, gelukt);
+        
+        //bedrag is null
+        gelukt = bank.maakOver(reknr1, reknr2, null);
+        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
+        assertEquals("Overmaken wel gelukt", false, gelukt);
+        
+        //bedrag is kleiner dan 0
+        bedrag = new Money(-1000, Money.EURO);
+        gelukt = bank.maakOver(reknr1, reknr2, bedrag);
+        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
+        assertEquals("Overmaken wel gelukt", false, gelukt);
+     
+        //onbekend rekeningnummer klant1
+        bedrag = new Money(1000, Money.EURO);
+        
+        try
+        {
+            bank.maakOver(1, reknr2, bedrag);
+            fail("Onjuist rekeningnummer bron");
+        }
+        catch (NumberDoesntExistException ex)
+        {
+            System.out.println("Onjuist rekeningnummer bron");
+        }
+        
+        //onbekend rekeningnummer klant2        
+        try
+        {
+            bank.maakOver(reknr1, 2, bedrag);
+            fail("Onjuist rekeningnummer bestemming");
+        }
+        catch (NumberDoesntExistException ex)
+        {
+            System.out.println("Onjuist rekeningnummer bestemming");
+        }
+        
+        //kredietlimiet overschreden
+        int kredietlimiet = rek1.getKredietLimietInCenten();
+        long saldo = rek1.getSaldo().getCents();
+        long overLimiet = saldo + kredietlimiet + 100;  
+        
+        bedrag = new Money(overLimiet, Money.EURO);
+        gelukt = bank.maakOver(reknr1, reknr2, bedrag);
+        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
+        assertEquals("Overmaken wel gelukt", false, gelukt);        
     }
 
     /**
