@@ -168,27 +168,51 @@ public class IBankTest {
         assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo().getCents());
         assertEquals("Overmaken mislukt", true, gelukt);
         
-        //dezelfde bestemming      
-        gelukt = bank.maakOver(reknr1, reknr1, bedrag);
-        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
-        assertEquals("Overmaken wel gelukt", false, gelukt);
+        //dezelfde bestemming
+        try
+        {
+            bank.maakOver(reknr1, reknr1, bedrag);
+            fail("Rekeningnummers gelijk");
+        }
+        catch (RuntimeException ex)
+        {
+            System.out.println("Rekeningnummers gelijk");
+        }
         
-        //bedrag is 0
-        bedrag = new Money(0, Money.EURO);
-        gelukt = bank.maakOver(reknr1, reknr2, bedrag);
-        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
-        assertEquals("Overmaken wel gelukt", false, gelukt);
+        //bedrag is 0        
+        try
+        {   
+            bedrag = new Money(0, Money.EURO);
+            gelukt = bank.maakOver(reknr1, reknr2, bedrag);
+            fail("Bedrag is 0");
+        }
+        catch (RuntimeException ex)
+        {
+            System.out.println("Bedrag is 0");
+        }
         
         //bedrag is null
-        gelukt = bank.maakOver(reknr1, reknr2, null);
-        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
-        assertEquals("Overmaken wel gelukt", false, gelukt);
+        try
+        {
+            gelukt = bank.maakOver(reknr1, reknr2, null);
+            fail("Bedrag is null");
+        }
+        catch (RuntimeException ex)
+        {
+            System.out.println("Bedrag is null");
+        }
         
         //bedrag is kleiner dan 0
-        bedrag = new Money(-1000, Money.EURO);
-        gelukt = bank.maakOver(reknr1, reknr2, bedrag);
-        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
-        assertEquals("Overmaken wel gelukt", false, gelukt);
+        try
+        {
+            bedrag = new Money(-1000, Money.EURO);
+            bank.maakOver(reknr1, reknr2, bedrag);
+            fail("Bedrag is kleiner dan 0");
+        }
+        catch (RuntimeException ex)
+        {
+            System.out.println("Bedrag is kleiner dan 0");
+        }
      
         //onbekend rekeningnummer klant1
         bedrag = new Money(1000, Money.EURO);
@@ -217,12 +241,18 @@ public class IBankTest {
         //kredietlimiet overschreden
         int kredietlimiet = rek1.getKredietLimietInCenten();
         long saldo = rek1.getSaldo().getCents();
-        long overLimiet = saldo + kredietlimiet + 100;  
-        
+        long overLimiet = saldo + kredietlimiet + 100;
         bedrag = new Money(overLimiet, Money.EURO);
-        gelukt = bank.maakOver(reknr1, reknr2, bedrag);
-        assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo());
-        assertEquals("Overmaken wel gelukt", false, gelukt);        
+        
+        try
+        {
+            bank.maakOver(reknr1, reknr2, bedrag);
+            fail("Kredietlimiet overschreden");
+        }
+        catch (RuntimeException ex)
+        {
+            System.out.println("Kredietlimiet overschreden");
+        }      
     }
 
     /**
