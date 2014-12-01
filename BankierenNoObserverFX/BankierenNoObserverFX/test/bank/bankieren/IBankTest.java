@@ -28,32 +28,17 @@ public class IBankTest {
     int reknr1;
     int reknr2;
     
-    public IBankTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         bank = new Bank("MAMBank");
         
         klant1 = new Klant("Trixy", "Lutjebroek");
-        reknr1 = bank.openRekening("Trixy", "Lutjebroek");
+        reknr1 = bank.openRekening(klant1.getNaam(), klant1.getPlaats());
         rek1 = bank.getRekening(reknr1);
         
         klant2 = new Klant("Loesje", "Lampegat");
-        reknr2 = bank.openRekening("Loesje", "Lampegat");
+        reknr2 = bank.openRekening(klant2.getNaam(), klant2.getPlaats());
         rek2 = bank.getRekening(reknr2);
-    }
-    
-    @After
-    public void tearDown() {
     }
     
     /**
@@ -61,25 +46,28 @@ public class IBankTest {
      */
     @Test
     public void testConstructor() {
-        assertFalse("Bank not set correctly; expected not null", this.bank == null);
-        assertTrue("Bank naam is not set correctly; expected MAMBank", this.bank.getName().equals("MAMBank"));
+        // juiste waarden
+        assertNotNull("Bank mag niet null zijn", this.bank);
+        assertEquals("Bank naam is niet juist; expected MAMBank", "MAMBank", this.bank.getName());
         
-        assertFalse("Klant1 not set correctly; expected not null", this.klant1 == null);
-        assertTrue("Klant1 name not set correctly; expected Trixy", this.klant1.getNaam().equals("Trixy"));
-        assertTrue("Klant1 plaats not set correctly; expected Lutjebroek", this.klant1.getPlaats().equals("Lutjebroek"));
+        // null waarde voor naam
+        IBank bank2 = new Bank(null);
+        assertNotNull("Bank wordt toch aangemaakt", bank2);
+        assertNull("Banknaam is geen null", bank2.getName());
         
-        assertFalse("Klant2 not set correctly", this.klant2 == null);
-        assertTrue("Klant2 name not set correctly; expected Loesje", this.klant2.getNaam().equals("Loesje"));
-        assertTrue("Klant2 plaats not set correctly; expected Lampegat", this.klant2.getPlaats().equals("Lampegat"));
+        // lege string voor naam
+        IBank bank3 = new Bank("");
+        assertNotNull("Bank wordt toch aangemaakt", bank3);
+        assertEquals("Banknaam is lege string", "", bank3.getName());
     }
-
 
     /**
      * Test of openRekening method, of class IBank.
      */
     @Test
-    public void testOpenRekening() {
-//     * creatie van een nieuwe bankrekening met een identificerend rekeningnummer; 
+    public void testOpenRekening() {        
+        // creatie van een nieuwe bankrekening met een identificerend rekeningnummer; 
+        
         int rekeningnr = this.bank.openRekening(klant1.getNaam(), klant1.getPlaats());
         IRekening rekening = this.bank.getRekening(rekeningnr);
         IKlant eigenaar = rekening.getEigenaar();
@@ -89,8 +77,9 @@ public class IBankTest {
         assertEquals("bestaande klant, naam klant fout", eigenaar.getNaam(), klant1.getNaam());
         assertEquals("bestaande klant, plaats klant fout", eigenaar.getPlaats(), klant1.getPlaats());
         
-//     * alleen als de klant, geidentificeerd door naam en plaats, nog niet bestaat 
-//     * wordt er ook een nieuwe klant aangemaakt
+        // alleen als de klant, geidentificeerd door naam en plaats, nog niet bestaat 
+        // wordt er ook een nieuwe klant aangemaakt
+        
         String naam = "Trixy";
         String plaats = "Eindhoven";
         rekeningnr = this.bank.openRekening(naam, plaats);
@@ -103,13 +92,14 @@ public class IBankTest {
         assertEquals("nieuwe klant, naam klant fout", eigenaar.getNaam(), naam);
         assertEquals("nieuwe klant, plaats klant fout", eigenaar.getPlaats(), plaats);
         
-//     * @param naam
-//     *            van de eigenaar van de nieuwe bankrekening
-//     * @param plaats
-//     *            de woonplaats van de eigenaar van de nieuwe bankrekening        
-//     * @return -1 zodra naam of plaats een lege string en anders het nummer van de
-//     *         gecreeerde bankrekening
-        // null naam
+        // @param naam
+        //            van de eigenaar van de nieuwe bankrekening
+        // @param plaats
+        //            de woonplaats van de eigenaar van de nieuwe bankrekening        
+        // @return -1 zodra naam of plaats een lege string en anders het nummer van de
+        //         gecreeerde bankrekening        
+
+        // null naam        
         plaats = "Eindhoven";
         rekeningnr = this.bank.openRekening(null, plaats);
         rekening = bank.getRekening(rekeningnr);
@@ -147,28 +137,28 @@ public class IBankTest {
      */
     @Test
     public void testMaakOver() throws Exception {
-//     * er wordt bedrag overgemaakt van de bankrekening met nummer bron naar de
-//     * bankrekening met nummer bestemming, mits het afschrijven van het bedrag
-//     * van de rekening met nr bron niet lager wordt dan de kredietlimiet van deze
-//     * rekening         
+        // er wordt bedrag overgemaakt van de bankrekening met nummer bron naar de
+        // bankrekening met nummer bestemming, mits het afschrijven van het bedrag
+        // van de rekening met nr bron niet lager wordt dan de kredietlimiet van deze
+        // rekening         
         
         Money bedrag = new Money(1200, Money.EURO);
         
-//     * @param bron
-//     * @param bestemming
-//     *            ongelijk aan bron
-//     * @param bedrag
-//     *            is groter dan 0
-//     * @return <b>true</b> als de overmaking is gelukt, anders <b>false</b>
-//     * @throws NumberDoesntExistException
-//     *             als een van de twee bankrekeningnummers onbekend is
+        // @param bron
+        // @param bestemming
+        //            ongelijk aan bron
+        // @param bedrag
+        //            is groter dan 0
+        // @return <b>true</b> als de overmaking is gelukt, anders <b>false</b>
+        // @throws NumberDoesntExistException
+        //             als een van de twee bankrekeningnummers onbekend is
         
-        //geldige waarden        
+        // geldige waarden        
         boolean gelukt = bank.maakOver(reknr1, reknr2, bedrag);
         assertEquals("Nieuw saldo klopt niet", -1200, rek1.getSaldo().getCents());
         assertEquals("Overmaken mislukt", true, gelukt);
         
-        //dezelfde bestemming
+        // dezelfde bestemming
         try
         {
             bank.maakOver(reknr1, reknr1, bedrag);
@@ -179,7 +169,7 @@ public class IBankTest {
             System.out.println("Rekeningnummers gelijk");
         }
         
-        //bedrag is 0        
+        // bedrag is 0        
         try
         {   
             bedrag = new Money(0, Money.EURO);
@@ -191,7 +181,7 @@ public class IBankTest {
             System.out.println("Bedrag is 0");
         }
         
-        //bedrag is null
+        // bedrag is null
         try
         {
             gelukt = bank.maakOver(reknr1, reknr2, null);
@@ -202,7 +192,7 @@ public class IBankTest {
             System.out.println("Bedrag is null");
         }
         
-        //bedrag is kleiner dan 0
+        // bedrag is kleiner dan 0
         try
         {
             bedrag = new Money(-1000, Money.EURO);
@@ -214,7 +204,7 @@ public class IBankTest {
             System.out.println("Bedrag is kleiner dan 0");
         }
      
-        //onbekend rekeningnummer klant1
+        // onbekend rekeningnummer klant1
         bedrag = new Money(1000, Money.EURO);
         
         try
@@ -227,7 +217,7 @@ public class IBankTest {
             System.out.println("Onjuist rekeningnummer bron");
         }
         
-        //onbekend rekeningnummer klant2        
+        // onbekend rekeningnummer klant2        
         try
         {
             bank.maakOver(reknr1, 2, bedrag);
@@ -238,7 +228,7 @@ public class IBankTest {
             System.out.println("Onjuist rekeningnummer bestemming");
         }
         
-        //kredietlimiet overschreden
+        // kredietlimiet overschreden
         int kredietlimiet = rek1.getKredietLimietInCenten();
         long saldo = rek1.getSaldo().getCents();
         long overLimiet = saldo + kredietlimiet + 100;
@@ -260,16 +250,21 @@ public class IBankTest {
      */
     @Test
     public void testGetRekening() {
-//     * @param nr
-//     * @return de bankrekening met nummer nr mits bij deze bank bekend, anders null
+        // @param nr
+        // @return de bankrekening met nummer nr mits bij deze bank bekend, anders null
         Rekening r1 = (Rekening) this.bank.getRekening(this.reknr1);
         Rekening r2 = (Rekening) this.bank.getRekening(this.reknr2);
         Rekening r3 = (Rekening) this.bank.getRekening(3);
         Rekening r4 = (Rekening) this.bank.getRekening(-1);
         
-        assertTrue("Rekening does not equal the expected; 1", r1.getNr()==this.rek1.getNr());
-        assertTrue("Rekening does not equal the expected; 2", r2.getNr()==this.rek2.getNr());
-        assertNull("Rekening does not equal the expected; Null", r3);
-        assertNull("Rekening does not equal the expected; Null", r4);
+        // juiste waardes
+        assertEquals("Rekening niet gelijk aan verwacht rekeningnummer", this.rek1.getNr(), r1.getNr());
+        assertEquals("Rekening niet gelijk aan verwacht rekeningnummer", this.rek2.getNr(), r2.getNr());
+        
+        // onbekend rekeningnummer
+        assertNull("Rekening not null", r3);
+        
+        // rekening met min waarde
+        assertNull("Rekening not null", r4);
     } 
 }
