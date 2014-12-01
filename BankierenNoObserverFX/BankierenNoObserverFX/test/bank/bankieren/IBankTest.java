@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Mickey / Melanie / Alexander
+ * @author Mickey / Melanie / Alexander 
  */
 public class IBankTest {
     
