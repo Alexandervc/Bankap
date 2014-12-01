@@ -58,7 +58,10 @@ public class IBankTest {
      */
     @Test
     public void testConstructor() {
-        assertFalse("Klant1 not set correctly", this.klant1 == null);
+        assertFalse("Bank not set correctly; expected not null", this.bank == null);
+        assertTrue("Bank naam is not set correctly; expected MAMBank", this.bank.getName().equals("MAMBank"));
+        
+        assertFalse("Klant1 not set correctly; expected not null", this.klant1 == null);
         assertTrue("Klant1 name not set correctly; expected Trixy", this.klant1.getNaam().equals("Trixy"));
         assertTrue("Klant1 plaats not set correctly; expected Lutjebroek", this.klant1.getPlaats().equals("Lutjebroek"));
         
@@ -116,5 +119,14 @@ public class IBankTest {
     public void testGetRekening() {
 //     * @param nr
 //     * @return de bankrekening met nummer nr mits bij deze bank bekend, anders null
+        Rekening r1 = (Rekening) this.bank.getRekening(1);
+        Rekening r2 = (Rekening) this.bank.getRekening(2);
+        Rekening r3 = (Rekening) this.bank.getRekening(3);
+        Rekening r4 = (Rekening) this.bank.getRekening(-1);
+        
+        assertTrue("Rekening does not equal the expected; 1", r1.getNr()==this.rek1.getNr());
+        assertTrue("Rekening does not equal the expected; 2", r2.getNr()==this.rek2.getNr());
+        assertNull("Rekening does not equal the expected; Null", r3);
+        assertNull("Rekening does not equal the expected; Null", r4);
     } 
 }
