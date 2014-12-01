@@ -39,15 +39,15 @@ public class IBankTest {
     
     @Before
     public void setUp() {
-        IBank bank = new Bank("MAMBank");
+        bank = new Bank("MAMBank");
         
-        IKlant klant1 = new Klant("Trixy", "Lutjebroek");
+        klant1 = new Klant("Trixy", "Lutjebroek");
         Money mon1 = new Money(50000, "euro");
-        Rekening rek1 = new Rekening(1, klant1, mon1);
+        rek1 = new Rekening(1, klant1, mon1);
         
-        IKlant klant2 = new Klant("Loesje", "Lampegat");
+        klant2 = new Klant("Loesje", "Lampegat");
         Money mon2 = new Money(120000, "euro");
-        Rekening rek2 = new Rekening(2, klant2, mon2);
+        rek2 = new Rekening(2, klant2, mon2);
     }
     
     @After
