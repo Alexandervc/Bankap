@@ -44,11 +44,11 @@ public class IBankTest {
         bank = new Bank("MAMBank");
         
         klant1 = new Klant("Trixy", "Lutjebroek");
-        reknr1 = bank.openRekening("Trixy", "Lutjebroek");
+        reknr1 = bank.openRekening(klant1.getNaam(), klant1.getPlaats());
         rek1 = bank.getRekening(reknr1);
         
         klant2 = new Klant("Loesje", "Lampegat");
-        reknr2 = bank.openRekening("Loesje", "Lampegat");
+        reknr2 = bank.openRekening(klant2.getNaam(), klant2.getPlaats());
         rek2 = bank.getRekening(reknr2);
     }
     
@@ -61,16 +61,8 @@ public class IBankTest {
      */
     @Test
     public void testConstructor() {
-        assertFalse("Bank not set correctly; expected not null", this.bank == null);
-        assertTrue("Bank naam is not set correctly; expected MAMBank", this.bank.getName().equals("MAMBank"));
-        
-        assertFalse("Klant1 not set correctly; expected not null", this.klant1 == null);
-        assertTrue("Klant1 name not set correctly; expected Trixy", this.klant1.getNaam().equals("Trixy"));
-        assertTrue("Klant1 plaats not set correctly; expected Lutjebroek", this.klant1.getPlaats().equals("Lutjebroek"));
-        
-        assertFalse("Klant2 not set correctly", this.klant2 == null);
-        assertTrue("Klant2 name not set correctly; expected Loesje", this.klant2.getNaam().equals("Loesje"));
-        assertTrue("Klant2 plaats not set correctly; expected Lampegat", this.klant2.getPlaats().equals("Lampegat"));
+        assertNotNull("Bank mag niet null zijn", this.bank);
+        assertTrue("Bank naam is niet juist; expected MAMBank", this.bank.getName().equals("MAMBank"));
     }
 
 
