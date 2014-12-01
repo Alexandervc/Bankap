@@ -232,8 +232,8 @@ public class IBankTest {
     public void testGetRekening() {
 //     * @param nr
 //     * @return de bankrekening met nummer nr mits bij deze bank bekend, anders null
-        Rekening r1 = (Rekening) this.bank.getRekening(1);
-        Rekening r2 = (Rekening) this.bank.getRekening(2);
+        Rekening r1 = (Rekening) this.bank.getRekening(this.reknr1);
+        Rekening r2 = (Rekening) this.bank.getRekening(this.reknr2);
         Rekening r3 = (Rekening) this.bank.getRekening(3);
         Rekening r4 = (Rekening) this.bank.getRekening(-1);
         

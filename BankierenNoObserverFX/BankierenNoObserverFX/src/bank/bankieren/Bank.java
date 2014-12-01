@@ -24,7 +24,7 @@ public class Bank implements IBank {
 	}
 
 	public int openRekening(String name, String city) {
-		if (name.equals("") || city.equals(""))
+		if (name == null || city == null || name.equals("") || city.equals(""))
 			return -1;
 
 		IKlant klant = getKlant(name, city);
