@@ -6,6 +6,7 @@
 
 package bank.bankieren;
 
+import fontys.util.NumberDoesntExistException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
