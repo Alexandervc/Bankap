@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Mickey
+ * @author Mickey / Melanie / Alexander
  */
 public class IBankTest {
     
@@ -38,21 +38,28 @@ public class IBankTest {
     @After
     public void tearDown() {
     }
+    
+    @Test
+    public void testConstructor() {
+        
+    }
+
 
     /**
      * Test of openRekening method, of class IBank.
      */
     @Test
     public void testOpenRekening() {
-        System.out.println("openRekening");
-        String naam = "";
-        String plaats = "";
-        IBank instance = new IBankImpl();
-        int expResult = 0;
-        int result = instance.openRekening(naam, plaats);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//     * creatie van een nieuwe bankrekening met een identificerend rekeningnummer; 
+//     * alleen als de klant, geidentificeerd door naam en plaats, nog niet bestaat 
+//     * wordt er ook een nieuwe klant aangemaakt
+//     * 
+//     * @param naam
+//     *            van de eigenaar van de nieuwe bankrekening
+//     * @param plaats
+//     *            de woonplaats van de eigenaar van de nieuwe bankrekening
+//     * @return -1 zodra naam of plaats een lege string en anders het nummer van de
+//     *         gecreeerde bankrekening
     }
 
     /**
@@ -60,16 +67,19 @@ public class IBankTest {
      */
     @Test
     public void testMaakOver() throws Exception {
-        System.out.println("maakOver");
-        int bron = 0;
-        int bestemming = 0;
-        Money bedrag = null;
-        IBank instance = new IBankImpl();
-        boolean expResult = false;
-        boolean result = instance.maakOver(bron, bestemming, bedrag);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//     * er wordt bedrag overgemaakt van de bankrekening met nummer bron naar de
+//     * bankrekening met nummer bestemming, mits het afschrijven van het bedrag
+//     * van de rekening met nr bron niet lager wordt dan de kredietlimiet van deze
+//     * rekening 
+//     * 
+//     * @param bron
+//     * @param bestemming
+//     *            ongelijk aan bron
+//     * @param bedrag
+//     *            is groter dan 0
+//     * @return <b>true</b> als de overmaking is gelukt, anders <b>false</b>
+//     * @throws NumberDoesntExistException
+//     *             als een van de twee bankrekeningnummers onbekend is
     }
 
     /**
@@ -77,47 +87,7 @@ public class IBankTest {
      */
     @Test
     public void testGetRekening() {
-        System.out.println("getRekening");
-        int nr = 0;
-        IBank instance = new IBankImpl();
-        IRekening expResult = null;
-        IRekening result = instance.getRekening(nr);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getName method, of class IBank.
-     */
-    @Test
-    public void testGetName() {
-        System.out.println("getName");
-        IBank instance = new IBankImpl();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    public class IBankImpl implements IBank {
-
-        public int openRekening(String naam, String plaats) {
-            return 0;
-        }
-
-        public boolean maakOver(int bron, int bestemming, Money bedrag) throws NumberDoesntExistException {
-            return false;
-        }
-
-        public IRekening getRekening(int nr) {
-            return null;
-        }
-
-        public String getName() {
-            return "";
-        }
-    }
-    
+//     * @param nr
+//     * @return de bankrekening met nummer nr mits bij deze bank bekend, anders null
+    } 
 }
