@@ -69,11 +69,28 @@ public class IBankTest {
     @Test
     public void testOpenRekening() {
 //     * creatie van een nieuwe bankrekening met een identificerend rekeningnummer; 
+        int rekeningnr = this.bank.openRekening(klant1.getNaam(), klant1.getPlaats());
+        IRekening rekening = this.bank.getRekening(rekeningnr);
+        IKlant eigenaar = rekening.getEigenaar();
         
+        assertTrue("bestaande klant, rekeningnr -1", rekeningnr != -1);
+        assertNotNull("bestaande klant, rekening null", rekening);
+        assertEquals("bestaande klant, naam klant fout", eigenaar.getNaam(), klant1.getNaam());
+        assertEquals("bestaande klant, plaats klant fout", eigenaar.getPlaats(), klant1.getPlaats());
         
 //     * alleen als de klant, geidentificeerd door naam en plaats, nog niet bestaat 
 //     * wordt er ook een nieuwe klant aangemaakt
+        String naam = "Trixy";
+        String plaats = "Eindhoven";
+        rekeningnr = this.bank.openRekening(naam, plaats);
+        rekening = this.bank.getRekening(rekeningnr);
+        eigenaar = rekening.getEigenaar();
         
+        assertTrue("nieuwe klant, rekeningnr -1", rekeningnr != -1);
+        assertNotNull("nieuwe klant, rekening null", rekening);
+        assertNotNull("nieuwe klant, eigenaar null", eigenaar);
+        assertEquals("nieuwe klant, naam klant fout", eigenaar.getNaam(), naam);
+        assertEquals("nieuwe klant, plaats klant fout", eigenaar.getPlaats(), plaats);
         
 //     * @param naam
 //     *            van de eigenaar van de nieuwe bankrekening
@@ -81,7 +98,37 @@ public class IBankTest {
 //     *            de woonplaats van de eigenaar van de nieuwe bankrekening        
 //     * @return -1 zodra naam of plaats een lege string en anders het nummer van de
 //     *         gecreeerde bankrekening
+        // null naam
+        plaats = "Eindhoven";
+        rekeningnr = this.bank.openRekening(null, plaats);
+        rekening = bank.getRekening(rekeningnr);
         
+        assertEquals("naam null, rekeningnr niet -1", rekeningnr, -1);
+        assertNull("naam null, rekening niet null", rekening);
+        
+        // empty naam
+        plaats = "Eindhoven";
+        rekeningnr = this.bank.openRekening("", plaats);
+        rekening = bank.getRekening(rekeningnr);
+        
+        assertEquals("naam leeg, rekeningnr niet -1", rekeningnr, -1);
+        assertNull("naam leeg, rekening niet null", rekening);
+        
+        // null plaats
+        naam = "Trixy";
+        rekeningnr = this.bank.openRekening(naam, null);
+        rekening = bank.getRekening(rekeningnr);
+        
+        assertEquals("plaats null, rekeningnr niet -1", rekeningnr, -1);
+        assertNull("plaats leeg, rekening niet null", rekening);
+        
+        // empty plaats
+        naam = "Trixy";
+        rekeningnr = this.bank.openRekening(naam, "");
+        rekening = bank.getRekening(rekeningnr);
+        
+        assertEquals("plaats leeg, rekeningnr niet -1", rekeningnr, -1);
+        assertNull("plaats leeg, rekening niet null", rekening);
     }
 
     /**
