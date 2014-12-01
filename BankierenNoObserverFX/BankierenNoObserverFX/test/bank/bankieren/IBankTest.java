@@ -6,7 +6,6 @@
 
 package bank.bankieren;
 
-import fontys.util.NumberDoesntExistException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,7 +58,13 @@ public class IBankTest {
      */
     @Test
     public void testConstructor() {
+        assertFalse("Klant1 not set correctly", this.klant1 == null);
+        assertTrue("Klant1 name not set correctly; expected Trixy", this.klant1.getNaam().equals("Trixy"));
+        assertTrue("Klant1 plaats not set correctly; expected Lutjebroek", this.klant1.getPlaats().equals("Lutjebroek"));
         
+        assertFalse("Klant2 not set correctly", this.klant2 == null);
+        assertTrue("Klant2 name not set correctly; expected Loesje", this.klant2.getNaam().equals("Loesje"));
+        assertTrue("Klant2 plaats not set correctly; expected Lampegat", this.klant2.getPlaats().equals("Lampegat"));
     }
 
 
