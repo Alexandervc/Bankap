@@ -69,15 +69,19 @@ public class IBankTest {
     @Test
     public void testOpenRekening() {
 //     * creatie van een nieuwe bankrekening met een identificerend rekeningnummer; 
+        
+        
 //     * alleen als de klant, geidentificeerd door naam en plaats, nog niet bestaat 
 //     * wordt er ook een nieuwe klant aangemaakt
-//     * 
+        
+        
 //     * @param naam
 //     *            van de eigenaar van de nieuwe bankrekening
 //     * @param plaats
-//     *            de woonplaats van de eigenaar van de nieuwe bankrekening
+//     *            de woonplaats van de eigenaar van de nieuwe bankrekening        
 //     * @return -1 zodra naam of plaats een lege string en anders het nummer van de
 //     *         gecreeerde bankrekening
+        
     }
 
     /**
