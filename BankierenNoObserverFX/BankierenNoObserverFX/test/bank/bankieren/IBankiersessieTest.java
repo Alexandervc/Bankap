@@ -42,24 +42,24 @@ public class IBankiersessieTest
     @Test
     public void testConctructor()
     {
-        //todo
+        //todo Mickey
     }
     
     @Test
     public void testIsGeldig()
     {
-        //todo
+        //todo Melanie
     }
     
     @Test
     public void testMaakOver()
     {
-        //todo  
+        //todo Melanie
     }
     
     @Test
     public void testLogUit()
     {
-        //todo
+        //todo Melanie
     }
 }

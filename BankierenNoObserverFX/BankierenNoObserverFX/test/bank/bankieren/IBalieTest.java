@@ -42,18 +42,18 @@ public class IBalieTest
     @Test
     public void testConstructor()
     {
-        //todo
+        //todo Mickey
     }
     
     @Test
     public void testOpenRekening()
     {
-        //todo
+        //todo Alex
     }            
     
     @Test
     public void testLogin()
     {
-        //todo
+        //todo Alex
     }
 }
