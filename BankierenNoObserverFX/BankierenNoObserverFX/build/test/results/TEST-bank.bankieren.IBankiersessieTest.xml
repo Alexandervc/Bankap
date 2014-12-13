@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="Alexander" name="bank.bankieren.IBalieTest" skipped="0" tests="3" time="0.187" timestamp="2014-12-13T09:47:37">
+<testsuite errors="0" failures="0" hostname="Alexander" name="bank.bankieren.IBankiersessieTest" skipped="0" tests="4" time="0.062" timestamp="2014-12-13T09:47:44">
   <properties>
     <property name="netbeans.autoupdate.country" value="NL" />
     <property name="javafx.binarycss" value="false" />
@@ -7,7 +7,7 @@
     <property name="javac.test.classpath" value="C:\Program Files\Java\jdk1.8.0_20\jre/lib/javaws.jar:C:\Program Files\Java\jdk1.8.0_20\jre/lib/deploy.jar:C:\Program Files\Java\jdk1.8.0_20\jre/lib/plugin.jar:build/classes:C:\Program Files\NetBeans 8.0.1\platform\modules\ext\junit-4.10.jar" />
     <property name="manifest.custom.codebase" value="*" />
     <property name="libs.junit.javadoc" value="C:\Program Files\NetBeans 8.0.1\java\docs\junit-3.8.2-api.zip" />
-    <property name="javac.includes" value="bank/bankieren/IBalieTest.java" />
+    <property name="javac.includes" value="bank/bankieren/IBankiersessieTest.java" />
     <property name="ant.core.lib" value="C:\Program Files\NetBeans 8.0.1\extide\ant\lib\ant.jar" />
     <property name="javadoc.windowtitle" value="" />
     <property name="javafx.preloader.enabled" value="false" />
@@ -45,7 +45,7 @@
     <property name="user.name" value="Alexander" />
     <property name="copylibs.rebase" value="true" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner bank.bankieren.IBalieTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\test\results\TEST-bank.bankieren.IBalieTest.xml crashfile=C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\junitvmwatcher6077043283544776349.properties propsfile=C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\junit7323998152546009498.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner bank.bankieren.IBankiersessieTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\test\results\TEST-bank.bankieren.IBankiersessieTest.xml crashfile=C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\junitvmwatcher827478787017115676.properties propsfile=C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\junit3443511852858887496.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -64,7 +64,7 @@
     <property name="build.compiler.emacs" value="true" />
     <property name="javafx.deploy.includeDT" value="true" />
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_20\jre\lib\endorsed" />
-    <property name="test.includes" value="bank/bankieren/IBalieTest.java" />
+    <property name="test.includes" value="bank/bankieren/IBankiersessieTest.java" />
     <property name="netbeans.dynamic.classpath" value="C:\Program Files\NetBeans 8.0.1\platform\core\core.jar;C:\Program Files\NetBeans 8.0.1\platform\core\org-openide-filesystems.jar;C:\Program Files\NetBeans 8.0.1\platform\core\locale\core_ja.jar;C:\Program Files\NetBeans 8.0.1\platform\core\locale\core_pt_BR.jar;C:\Program Files\NetBeans 8.0.1\platform\core\locale\core_ru.jar;C:\Program Files\NetBeans 8.0.1\platform\core\locale\core_zh_CN.jar;C:\Program Files\NetBeans 8.0.1\platform\core\locale\org-openide-filesystems_ja.jar;C:\Program Files\NetBeans 8.0.1\platform\core\locale\org-openide-filesystems_pt_BR.jar;C:\Program Files\NetBeans 8.0.1\platform\core\locale\org-openide-filesystems_ru.jar;C:\Program Files\NetBeans 8.0.1\platform\core\locale\org-openide-filesystems_zh_CN.jar;C:\Program Files\NetBeans 8.0.1\nb\core\org-netbeans-upgrader.jar;C:\Program Files\NetBeans 8.0.1\nb\core\locale\core_nb.jar;C:\Program Files\NetBeans 8.0.1\nb\core\locale\core_nb_ja.jar;C:\Program Files\NetBeans 8.0.1\nb\core\locale\core_nb_pt_BR.jar;C:\Program Files\NetBeans 8.0.1\nb\core\locale\core_nb_ru.jar;C:\Program Files\NetBeans 8.0.1\nb\core\locale\core_nb_zh_CN.jar;C:\Program Files\NetBeans 8.0.1\nb\core\locale\org-netbeans-upgrader_ja.jar;C:\Program Files\NetBeans 8.0.1\nb\core\locale\org-netbeans-upgrader_pt_BR.jar;C:\Program Files\NetBeans 8.0.1\nb\core\locale\org-netbeans-upgrader_ru.jar;C:\Program Files\NetBeans 8.0.1\nb\core\locale\org-netbeans-upgrader_zh_CN.jar" />
     <property name="jnlp.enabled" value="false" />
     <property name="java.vm.specification.version" value="1.8" />
@@ -79,7 +79,7 @@
     <property name="javac.debug" value="true" />
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
-    <property name="javac.includesfile.binary" value="C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\null196147484" />
+    <property name="javac.includesfile.binary" value="C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\null1739625696" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="ant.file.type.BankierenNoObserverFX-impl" value="file" />
     <property name="javac.test.processorpath" value="C:\Program Files\Java\jdk1.8.0_20\jre/lib/javaws.jar:C:\Program Files\Java\jdk1.8.0_20\jre/lib/deploy.jar:C:\Program Files\Java\jdk1.8.0_20\jre/lib/plugin.jar:build/classes:C:\Program Files\NetBeans 8.0.1\platform\modules\ext\junit-4.10.jar" />
@@ -92,7 +92,7 @@
     <property name="libs.junit.classpath" value="C:\Program Files\NetBeans 8.0.1\java\modules\ext\junit-3.8.2.jar" />
     <property name="libs.hibernate4-persistencemodelgen.javadoc" value="" />
     <property name="libs.jaxb.javadoc" value="C:\Program Files\NetBeans 8.0.1\ide\docs\jaxb-api-doc.zip" />
-    <property name="javac.includes.binary" value="C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\test\classes\bank\bankieren\IBalieTest.class" />
+    <property name="javac.includes.binary" value="C:\Users\Alexander\Documents\GitHub\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\test\classes\bank\bankieren\IBankiersessieTest.class" />
     <property name="ant.home" value="C:\Program Files\NetBeans 8.0.1\extide\ant" />
     <property name="libs.junit_4.src" value="C:\Program Files\NetBeans 8.0.1\java\docs\junit-4.10-sources.jar" />
     <property name="javafx.run.height" value="600" />
@@ -338,9 +338,10 @@
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
   </properties>
-  <testcase classname="bank.bankieren.IBalieTest" name="testConstructor" time="0.125" />
-  <testcase classname="bank.bankieren.IBalieTest" name="testLogin" time="0.0" />
-  <testcase classname="bank.bankieren.IBalieTest" name="testOpenRekening" time="0.0" />
+  <testcase classname="bank.bankieren.IBankiersessieTest" name="testConctructor" time="0.0" />
+  <testcase classname="bank.bankieren.IBankiersessieTest" name="testLogUit" time="0.0" />
+  <testcase classname="bank.bankieren.IBankiersessieTest" name="testMaakOver" time="0.0" />
+  <testcase classname="bank.bankieren.IBankiersessieTest" name="testIsGeldig" time="0.0" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

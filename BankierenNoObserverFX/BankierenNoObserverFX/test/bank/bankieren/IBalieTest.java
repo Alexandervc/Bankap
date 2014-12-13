@@ -8,6 +8,8 @@ package bank.bankieren;
 
 import bank.internettoegang.Balie;
 import bank.internettoegang.IBalie;
+import bank.internettoegang.IBankiersessie;
+import fontys.util.InvalidSessionException;
 import java.rmi.RemoteException;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -27,7 +29,9 @@ public class IBalieTest
     IKlant klant1;
     IKlant klant2;
     String acc1;
+    String ww1;
     String acc2;
+    String ww2;
     
     public IBalieTest() {
     }
@@ -46,10 +50,12 @@ public class IBalieTest
         this.balie = new Balie(bank);
         
         klant1 = new Klant("Trixy", "Lutjebroek");
-        acc1 = balie.openRekening(klant1.getNaam(), klant1.getPlaats(), "secret");
+        ww1 = "secret";
+        acc1 = balie.openRekening(klant1.getNaam(), klant1.getPlaats(), ww1);
         
         klant2 = new Klant("Loesje", "Lampegat");
-        acc2 = balie.openRekening(klant2.getNaam(), klant2.getPlaats(), "ookiets");
+        ww2 = "ookiets";
+        acc2 = balie.openRekening(klant2.getNaam(), klant2.getPlaats(), ww2);
     }
     
     @After
@@ -184,14 +190,81 @@ public class IBalieTest
     
     // Alexander
     @Test
-    public void testLogin()
+    public void testLogin() throws RemoteException, InvalidSessionException
     {
+        String acc;
+        String ww;
+        IBankiersessie sessie;
+        IKlant eigenaar;
 //   * er wordt een sessie opgestart voor het login-account met de naam
 //   * accountnaam mits het wachtwoord correct is
-//   * @param accountnaam
-//   * @param wachtwoord
 //   * @return de gegenereerde sessie waarbinnen de gebruiker 
 //   * toegang krijgt tot de bankrekening die hoort bij het betreffende login-
 //   * account mits accountnaam en wachtwoord matchen, anders null
+        // wachtwoord correct
+        acc = acc1;
+        ww = ww1;
+        
+        sessie = balie.logIn(acc, ww);
+        eigenaar = sessie.getRekening().getEigenaar();
+        
+        // met de naam accountnaam?
+        assertNotNull("ww correct, sessie null", sessie);
+        assertEquals("ww correct, eigenaar naam incorrect", eigenaar.getNaam(), klant1.getNaam());
+        assertEquals("ww correct, eigenaar plaats incorrect", eigenaar.getPlaats(), klant1.getPlaats());
+        
+        // wachtwoord niet correct
+        acc = acc1;
+        ww = ww2;
+        
+        sessie = balie.logIn(acc, ww);
+        
+        assertNull("ww incorrect, sessie not null", sessie);
+        
+        // andere inlognaam
+        acc = acc2;
+        ww = ww1;
+        
+        sessie = balie.logIn(acc, ww);
+        
+        assertNull("andere inlognaam, sessie not null", sessie);
+        
+        // niet bestaande inlognaam
+        acc = "bestaatNiet";
+        ww = ww1;
+        
+        sessie = balie.logIn(acc, ww);
+        
+        assertNull("niet bestaande inlognaam, sessie not null", sessie);
+        
+//   * @param accountnaam
+//   * @param wachtwoord
+        // accountnaam null
+        ww = ww1;
+        
+        sessie = balie.logIn(null, ww);
+        
+        assertNull("acc null, sessie not null", sessie);
+        
+        // accountnaam empty
+        ww = ww1;
+        
+        sessie = balie.logIn("", ww);
+        
+        assertNull("acc empty, sessie not null", sessie);
+        
+        // wachtwoord null
+        acc = acc1;
+        
+        sessie = balie.logIn(acc, null);
+        
+        assertNull("ww null, sessie not null", sessie);
+        
+        // wachtwoord empty
+        acc = acc1;
+        
+        sessie = balie.logIn(acc, "");
+        
+        assertNull("ww empty, sessie not null", sessie);
     }
 }
