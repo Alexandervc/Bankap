@@ -21,12 +21,12 @@ public class Balie extends UnicastRemoteObject implements IBalie {
 	}
 
 	public String openRekening(String naam, String plaats, String wachtwoord) {
-		if (naam.equals(""))
+		if (naam == null || naam.equals(""))
 			return null;
-		if (plaats.equals(""))
+		if (plaats == null || plaats.equals(""))
 			return null;
 
-		if (wachtwoord.length() < 4 || wachtwoord.length() > 8)
+		if (wachtwoord == null || wachtwoord.length() < 4 || wachtwoord.length() > 8)
 			return null;
 
 		int nr = bank.openRekening(naam, plaats);
