@@ -47,10 +47,44 @@ public class IBankiersessieTest
         GELDIGHEIDSDUUR = 600000; 
     }
 
+    /**
+     * Test Bankiersessie Constructor
+     * @throws java.rmi.RemoteException wanneer er iets misgaat met de RMI, dit is niet relevant voor het testen van het systeem 
+     */
     @Test
-    public void testConctructor()
+    public void testConctructor() throws RemoteException, InvalidSessionException
     {
-        //todo Mickey
+        // juiste waarden
+        assertNotNull("Bankiersessie mag niet null zijn", this.sessie);
+        
+        IBankiersessie sessie1;
+        IBank bank1;
+        int rekeningnummer;
+        
+        // Correct aanmaken
+        bank1 = new Bank("Bank");
+        rekeningnummer = 0;
+        
+        sessie1 = new Bankiersessie(rekeningnummer, bank1);
+        assertNotNull("Balie is niet aangemaakt ondanks correcte waarde", sessie1);
+        
+        // Negatief rekeningnummer 
+        bank1 = new Bank("Bank");
+        rekeningnummer = -1;
+        
+        sessie1 = new Bankiersessie(rekeningnummer, bank1);
+        assertNull("Bankiersessie is aangemaakt ondanks een negatief rekeningnummer", sessie1);
+        
+        // Bank is null
+        bank1 = null;
+        rekeningnummer = 0;
+        
+        sessie1 = new Bankiersessie(rekeningnummer, bank1);
+        assertNull("Bankiersessie is aangemaakt ondanks een null-waarde voor bank", sessie1);   
+        
+        // Kijk na of rekening klopt
+        IRekening rekeningnummer1 = this.bank.getRekening(reknr1);
+        assertTrue("Sessie-rekening is niet gelijk aan de opgegeven rekening", bank.getRekening(rekeningnummer1.getNr()).equals(this.sessie.getRekening()));  
     }
     
     @Test //Melanie

@@ -62,10 +62,19 @@ public class IBalieTest
     public void tearDown() {
     }
 
+    /**
+     * Test de constructor van balie
+     * @throws RemoteException wanneer er iets misgaat met de RMI - dit is niet relevant tot het testen van het systeem
+     */
     @Test
-    public void testConstructor()
+    public void testConstructor() throws RemoteException
     {
-        //todo Mickey
+        // juiste waarden
+        assertNotNull("Balie mag niet null zijn", this.balie);
+        
+        // null waarde voor naam
+        IBalie balie1 = new Balie(null);
+        assertNull("Balie is aangemaakt ondanks foutieve null-waarde", balie1);
     }
     
     
