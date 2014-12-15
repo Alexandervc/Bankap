@@ -30,6 +30,7 @@ public class IBankiersessieTest
     int reknr1;
     int reknr2;    
     long GELDIGHEIDSDUUR; 
+    long time;
     
     @Before
     public void setUp() throws RemoteException {
@@ -44,7 +45,8 @@ public class IBankiersessieTest
         rek2 = bank.getRekening(reknr2);
         
         sessie = new Bankiersessie(reknr1, bank);  
-        GELDIGHEIDSDUUR = 600000; 
+        GELDIGHEIDSDUUR = 10000; 
+        time = 0;
     }
 
     /**
@@ -112,7 +114,15 @@ public class IBankiersessieTest
         assertTrue("Tijd na aanroep langer dan geldigheidsduur", isgeldig);
         
         //Na wachttijd langer dan geldigheidsduur
-        wait(GELDIGHEIDSDUUR + 100);
+        //wait(GELDIGHEIDSDUUR + 100);
+        time = System.currentTimeMillis();
+        long count = 0;
+        
+        while (count < (GELDIGHEIDSDUUR + 1000))
+        {
+            count = System.currentTimeMillis() - time;
+        }        
+        
         isgeldig = sessie.isGeldig();
         assertFalse("Tijd na aanroep korter dan geldigheidsduur", isgeldig);
     }
@@ -235,7 +245,15 @@ public class IBankiersessieTest
         }
         
         //Na wachttijd langer dan geldigheidsduur
-        wait(GELDIGHEIDSDUUR + 100);
+        //wait(GELDIGHEIDSDUUR + 100);
+        time = System.currentTimeMillis();
+        long count = 0;
+        
+        while (count < (GELDIGHEIDSDUUR + 1000))
+        {
+            count = System.currentTimeMillis() - time;
+        }
+        
         boolean isgeldig = sessie.isGeldig();
         assertFalse("Tijd na aanroep korter dan geldigheidsduur", isgeldig);
     }
@@ -243,16 +261,15 @@ public class IBankiersessieTest
     @Test //Melanie
     public void testLogUit() throws InvalidSessionException, RemoteException
     {
-//        /**
+//       /**
 //	 * sessie wordt beeindigd
 //	 */
         
         //Geldige sessie
         IRekening rek = sessie.getRekening();
         boolean isgeldig = sessie.isGeldig();        
-        assertTrue("Sessie niet geldig", isgeldig);
+        assertTrue("Sessie niet geldig", isgeldig);  
         sessie.logUit();        
-        isgeldig = sessie.isGeldig();
-        assertFalse("Sessie niet beeindigd", isgeldig);
+        //Niet te testen zonder RMI
     }
 }
