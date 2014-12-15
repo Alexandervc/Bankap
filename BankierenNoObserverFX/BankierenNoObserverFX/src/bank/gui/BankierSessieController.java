@@ -9,10 +9,13 @@ import bank.bankieren.IRekening;
 import bank.bankieren.Money;
 import bank.internettoegang.IBalie;
 import bank.internettoegang.IBankiersessie;
+import fontys.observer.RemotePropertyListener;
 import fontys.util.InvalidSessionException;
 import fontys.util.NumberDoesntExistException;
+import java.beans.PropertyChangeEvent;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +32,7 @@ import javafx.scene.control.TextField;
  *
  * @author frankcoenen
  */
-public class BankierSessieController implements Initializable {
+public class BankierSessieController extends UnicastRemoteObject implements Initializable, RemotePropertyListener {
 
     @FXML
     private Hyperlink hlLogout;
@@ -53,6 +56,8 @@ public class BankierSessieController implements Initializable {
     private BankierClient application;
     private IBalie balie;
     private IBankiersessie sessie;
+    
+    public BankierSessieController() throws RemoteException {}
 
     public void setApp(BankierClient application, IBalie balie, IBankiersessie sessie) {
         this.balie = balie;
@@ -110,5 +115,10 @@ public class BankierSessieController implements Initializable {
             e1.printStackTrace();
             taMessage.setText(e1.getMessage());
         }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent pce) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
