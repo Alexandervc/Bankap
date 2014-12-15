@@ -14,7 +14,8 @@ public class Balie extends UnicastRemoteObject implements IBalie {
 	private java.util.Random random;
 
 	public Balie(IBank bank) throws RemoteException {
-		this.bank = bank;
+            if(bank == null) throw new IllegalArgumentException();
+            this.bank = bank;
 		loginaccounts = new HashMap<String, ILoginAccount>();
 		//sessions = new HashSet<IBankiersessie>();
 		random = new Random();

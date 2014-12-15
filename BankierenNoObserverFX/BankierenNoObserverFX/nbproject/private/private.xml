@@ -3,19 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/bankieren/Rekening.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/test/bank/bankieren/IBalieTest.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/bankieren/IRekening.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/bankieren/Klant.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/bankieren/Money.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/test/bank/bankieren/IBankiersessieTest.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/internettoegang/IBankiersessie.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/internettoegang/IBalie.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/bankieren/IRekeningTbvBank.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/bankieren/Bank.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/bankieren/IBank.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/bankieren/IKlant.java</file>
-            <file>file:/C:/Users/Alexander/Documents/GitHub/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/test/bank/bankieren/IBankTest.java</file>
+            <file>file:/E:/School/GSO32/BankAppV3/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/test/bank/bankieren/IBankTest.java</file>
+            <file>file:/E:/School/GSO32/BankAppV3/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/internettoegang/IBankiersessie.java</file>
+            <file>file:/E:/School/GSO32/BankAppV3/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/test/bank/bankieren/IBalieTest.java</file>
+            <file>file:/E:/School/GSO32/BankAppV3/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/internettoegang/Bankiersessie.java</file>
+            <file>file:/E:/School/GSO32/BankAppV3/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/src/bank/bankieren/IBank.java</file>
+            <file>file:/E:/School/GSO32/BankAppV3/Bankap/BankierenNoObserverFX/BankierenNoObserverFX/test/bank/bankieren/IBankiersessieTest.java</file>
         </group>
     </open-files>
 </project-private>

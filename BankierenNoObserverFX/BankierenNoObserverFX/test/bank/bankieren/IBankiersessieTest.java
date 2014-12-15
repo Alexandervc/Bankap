@@ -72,15 +72,18 @@ public class IBankiersessieTest
         bank1 = new Bank("Bank");
         rekeningnummer = -1;
         
-        sessie1 = new Bankiersessie(rekeningnummer, bank1);
-        assertNull("Bankiersessie is aangemaakt ondanks een negatief rekeningnummer", sessie1);
-        
+        try{
+            sessie1 = new Bankiersessie(rekeningnummer, bank1);
+            assertNull("Bankiersessie is aangemaakt ondanks een negatief rekeningnummer", sessie1);
+        } catch(IllegalArgumentException e) {}
         // Bank is null
         bank1 = null;
         rekeningnummer = 0;
         
+        try {
         sessie1 = new Bankiersessie(rekeningnummer, bank1);
         assertNull("Bankiersessie is aangemaakt ondanks een null-waarde voor bank", sessie1);   
+        } catch(IllegalArgumentException e) {}
         
         // Kijk na of rekening klopt
         IRekening rekeningnummer1 = this.bank.getRekening(reknr1);

@@ -20,6 +20,9 @@ public class Bankiersessie extends UnicastRemoteObject implements
 
 	public Bankiersessie(int reknr, IBank bank) throws RemoteException {
 		laatsteAanroep = System.currentTimeMillis();
+                
+                if(reknr < 0 || bank == null) throw new IllegalArgumentException();
+                
 		this.reknr = reknr;
 		this.bank = bank;
 		

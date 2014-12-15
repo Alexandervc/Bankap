@@ -73,8 +73,13 @@ public class IBalieTest
         assertNotNull("Balie mag niet null zijn", this.balie);
         
         // null waarde voor naam
-        IBalie balie1 = new Balie(null);
-        assertNull("Balie is aangemaakt ondanks foutieve null-waarde", balie1);
+        try {
+            IBalie balie1 = new Balie(null);
+            System.out.println("Balie is aangemaakt ondanks foutieve null-waarde");
+            fail();
+        } catch(IllegalArgumentException e) {
+        }
+        
     }
     
     
