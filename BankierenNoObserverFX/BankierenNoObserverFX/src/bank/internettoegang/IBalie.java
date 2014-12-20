@@ -28,6 +28,15 @@ public interface IBalie extends Remote {
    * account mits accountnaam en wachtwoord matchen, anders null
    */
   IBankiersessie logIn(String accountnaam, String wachtwoord) throws RemoteException;
+  
+  /**
+   * 
+   * @param reknr
+   * @return indien beschikbaar de bankiersessie met het het gegeven
+   * rekeningnummer, anders null
+   * @throws RemoteException 
+   */
+  IBankiersessie getBankiersessie(int reknr) throws RemoteException;
 
 }
 

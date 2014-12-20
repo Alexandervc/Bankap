@@ -4,20 +4,23 @@ import java.rmi.*;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import bank.bankieren.*;
+import fontys.util.InvalidSessionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Balie extends UnicastRemoteObject implements IBalie {
 
 	private static final long serialVersionUID = -4194975069137290780L;
 	private IBank bank;
 	private HashMap<String, ILoginAccount> loginaccounts;
-	//private Collection<IBankiersessie> sessions;
+	private Collection<IBankiersessie> sessions;
 	private java.util.Random random;
 
 	public Balie(IBank bank) throws RemoteException {
             if(bank == null) throw new IllegalArgumentException();
             this.bank = bank;
 		loginaccounts = new HashMap<String, ILoginAccount>();
-		//sessions = new HashSet<IBankiersessie>();
+		sessions = new HashSet<IBankiersessie>();
 		random = new Random();
 	}
 
@@ -49,9 +52,9 @@ public class Balie extends UnicastRemoteObject implements IBalie {
 		if (loginaccount == null)
 			return null;
 		if (loginaccount.checkWachtwoord(wachtwoord)) {
-			IBankiersessie sessie = new Bankiersessie(loginaccount
+			IBankiersessie sessie = new Bankiersessie(this, loginaccount
 					.getReknr(), bank);
-			
+			this.sessions.add(sessie);
 		 	return sessie;
 		}
 		else return null;
@@ -67,6 +70,18 @@ public class Balie extends UnicastRemoteObject implements IBalie {
 		}
 		return s.toString();
 	}
+
+    @Override
+    public IBankiersessie getBankiersessie(int reknr) throws RemoteException {
+        for(IBankiersessie s : this.sessions) {
+            try {
+                if(s.getRekening().getNr() == reknr) {
+                    return s;
+                }
+            } catch (InvalidSessionException ex) {   }
+        }
+        return null;
+    }
 
 
 }

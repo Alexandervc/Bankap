@@ -19,6 +19,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +34,8 @@ import javafx.scene.control.TextField;
  * @author frankcoenen
  */
 public class BankierSessieController extends UnicastRemoteObject implements Initializable, RemotePropertyListener {
-
+    private static final String propertyname = "rekening";
+    
     @FXML
     private Hyperlink hlLogout;
 
@@ -62,6 +64,11 @@ public class BankierSessieController extends UnicastRemoteObject implements Init
     public void setApp(BankierClient application, IBalie balie, IBankiersessie sessie) {
         this.balie = balie;
         this.sessie = sessie;
+        try {
+            this.sessie.addListener(this, propertyname);
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
         this.application = application;
         IRekening rekening = null;
         try {
@@ -73,11 +80,16 @@ public class BankierSessieController extends UnicastRemoteObject implements Init
             tfNameCity.setText(eigenaar);
         } catch (InvalidSessionException ex) {
             taMessage.setText("bankiersessie is verlopen");
-            Logger.getLogger(BankierSessieController.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                this.sessie.removeListener(this, propertyname);
+            } catch (RemoteException ex1) {
+                ex.printStackTrace();
+            }
+            ex.printStackTrace();
 
         } catch (RemoteException ex) {
             taMessage.setText("verbinding verbroken");
-            Logger.getLogger(BankierSessieController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -91,6 +103,7 @@ public class BankierSessieController extends UnicastRemoteObject implements Init
     @FXML
     private void logout(ActionEvent event) {
         try {
+            sessie.removeListener(this, propertyname);
             sessie.logUit();
             application.gotoLogin(balie, "");
         } catch (RemoteException e) {
@@ -111,7 +124,15 @@ public class BankierSessieController extends UnicastRemoteObject implements Init
         } catch (RemoteException e1) {
             e1.printStackTrace();
             taMessage.setText("verbinding verbroken");
-        } catch (NumberDoesntExistException | InvalidSessionException e1) {
+        } catch (NumberDoesntExistException e1) {
+            e1.printStackTrace();
+            taMessage.setText(e1.getMessage());
+        } catch (InvalidSessionException e1) {
+            try {
+                sessie.removeListener(this, propertyname);
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
             e1.printStackTrace();
             taMessage.setText(e1.getMessage());
         }
@@ -119,6 +140,25 @@ public class BankierSessieController extends UnicastRemoteObject implements Init
 
     @Override
     public void propertyChange(PropertyChangeEvent pce) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BankierSessieController app = this;
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if(pce.getNewValue() == null) {
+                    // Sessie is verlopen
+                    taMessage.setText("session has been expired");
+                    try {
+                        sessie.removeListener(app, propertyname);
+                    } catch (RemoteException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    IRekening rek = (IRekening) pce.getNewValue();
+                    tfBalance.setText(rek.getSaldo() + "");
+                }
+            }
+            
+        });
     }
 }

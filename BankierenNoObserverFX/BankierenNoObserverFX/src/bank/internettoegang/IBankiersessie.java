@@ -4,13 +4,14 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import bank.bankieren.IRekening;
 import bank.bankieren.Money;
+import fontys.observer.RemotePublisher;
 import fontys.util.InvalidSessionException;
 import fontys.util.NumberDoesntExistException;
 
-public interface IBankiersessie extends Remote {
+public interface IBankiersessie extends RemotePublisher {
 	
 	//long GELDIGHEIDSDUUR = 600000;
-        long GELDIGHEIDSDUUR = 10000;
+        long GELDIGHEIDSDUUR = 60000;
         
 	/**
 	 * @returns true als de laatste aanroep van getRekening of maakOver voor deze
@@ -51,4 +52,10 @@ public interface IBankiersessie extends Remote {
 	 * @throws RemoteException
 	 */
 	IRekening getRekening() throws InvalidSessionException, RemoteException;
+        
+        /**
+         * Pusht de nieuwe rekening naar de geabonneerde listeners
+         * @throws RemoteException 
+         */
+        void push() throws RemoteException;
 }

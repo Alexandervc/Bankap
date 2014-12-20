@@ -45,7 +45,7 @@ public class IBankiersessieTest
         rek2 = bank.getRekening(reknr2);
         
         sessie = new Bankiersessie(reknr1, bank);  
-        GELDIGHEIDSDUUR = 10000; 
+        GELDIGHEIDSDUUR = 60000; 
         time = 0;
     }
 
@@ -83,8 +83,8 @@ public class IBankiersessieTest
         rekeningnummer = 0;
         
         try {
-        sessie1 = new Bankiersessie(rekeningnummer, bank1);
-        assertNull("Bankiersessie is aangemaakt ondanks een null-waarde voor bank", sessie1);   
+            sessie1 = new Bankiersessie(rekeningnummer, bank1);
+            assertNull("Bankiersessie is aangemaakt ondanks een null-waarde voor bank", sessie1);   
         } catch(IllegalArgumentException e) {}
         
         // Kijk na of rekening klopt
@@ -246,13 +246,14 @@ public class IBankiersessieTest
         
         //Na wachttijd langer dan geldigheidsduur
         //wait(GELDIGHEIDSDUUR + 100);
-        time = System.currentTimeMillis();
-        long count = 0;
-        
-        while (count < (GELDIGHEIDSDUUR + 1000))
-        {
-            count = System.currentTimeMillis() - time;
-        }
+        Thread.sleep(GELDIGHEIDSDUUR + 1000);
+//        time = System.currentTimeMillis();
+//        long count = 0;
+//        
+//        while (count < (GELDIGHEIDSDUUR + 1000))
+//        {
+//            count = System.currentTimeMillis() - time;
+//        }
         
         boolean isgeldig = sessie.isGeldig();
         assertFalse("Tijd na aanroep korter dan geldigheidsduur", isgeldig);
