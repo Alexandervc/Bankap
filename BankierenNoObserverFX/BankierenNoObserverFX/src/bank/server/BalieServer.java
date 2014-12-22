@@ -6,6 +6,8 @@
 package bank.server;
 
 import bank.bankieren.Bank;
+import bank.bankieren.Centrale;
+import bank.bankieren.IBank;
 import bank.gui.BankierClient;
 import bank.internettoegang.Balie;
 import bank.internettoegang.IBalie;
@@ -13,6 +15,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +39,9 @@ public class BalieServer extends Application {
     private final double MINIMUM_WINDOW_WIDTH = 600.0;
     private final double MINIMUM_WINDOW_HEIGHT = 200.0;
     private String nameBank;
+    
+    private Registry registry;
+    private Centrale centrale;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -47,6 +54,9 @@ public class BalieServer extends Application {
             gotoBankSelect();
 
             primaryStage.show();
+            
+            this.registry = null;
+            this.centrale = Centrale.getInstance();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -65,9 +75,18 @@ public class BalieServer extends Application {
                 out = new FileOutputStream(nameBank + ".props");
                 props.store(out, null);
                 out.close();
-                java.rmi.registry.LocateRegistry.createRegistry(port);
-                IBalie balie = new Balie(new Bank(nameBank));
-                Naming.rebind(nameBank, balie);
+                if(this.registry == null) {
+                    this.registry = LocateRegistry.createRegistry(port);
+                }
+                
+                try {
+                    IBank newBank = new Bank(nameBank);
+                    this.centrale.addBank(newBank);
+                    IBalie balie = new Balie(newBank);
+                    this.registry.rebind(nameBank, balie);
+                } catch (IllegalArgumentException ex) {
+                    System.out.println("Kan bank niet toevoegen: " + ex.getMessage());
+                }
                
                 return true;
 

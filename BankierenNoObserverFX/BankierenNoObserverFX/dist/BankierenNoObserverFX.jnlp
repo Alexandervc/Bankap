@@ -11,8 +11,8 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="BankierenNoObserverFX.jar" size="44090" download="eager" />
-    <jar href="lib/FontysObserver.jar" size="7992" download="eager" />
+    <jar href="BankierenNoObserverFX.jar" size="44454" download="eager" />
+    <jar href="lib/FontysObserver.jar" size="7991" download="eager" />
   </resources>
 <security>
   <all-permissions/>
