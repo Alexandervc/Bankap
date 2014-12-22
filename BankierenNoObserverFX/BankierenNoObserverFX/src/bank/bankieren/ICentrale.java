@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Melanie / Alexander
  */
 public interface ICentrale
-{
+{    
     /**
      * Voeg bank toe aan list of IBanks
      * @param bank, not null, naam bestaat nog niet
