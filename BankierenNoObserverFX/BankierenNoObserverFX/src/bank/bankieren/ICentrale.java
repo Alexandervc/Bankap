@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Melanie
+ * @author Melanie / Alexander
  */
 public interface ICentrale
 {
     /**
      * Voeg bank toe aan list of IBanks
-     * @param bank, not null
+     * @param bank, not null, naam bestaat nog niet
      * @return toevoegen geslaagd
      */
     public boolean addBank(IBank bank);

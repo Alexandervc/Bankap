@@ -14,57 +14,88 @@ import java.util.ArrayList;
  */
 public class Centrale implements ICentrale
 {
-    ArrayList<IBank> banken;
+    private ArrayList<IBank> banken;
     
     public Centrale()
     {
         banken = new ArrayList<>();
     }    
     
+    private IBank findBank(String naam) {
+        for(IBank b : this.banken) 
+        {
+            if(b.getName().toLowerCase().equals(naam.toLowerCase())) 
+            {
+                return b;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Voeg bank toe aan list of IBanks
+     * @param bank, not null, naam bestaat nog niet
+     * @return toevoegen geslaagd
+     */
     @Override
     public boolean addBank(IBank bank)
     {
-        if (bank != null)
+        if (bank == null )
         {
-            return banken.add(bank);
+            throw new IllegalArgumentException("bank is null");
         }
         
-        return false;
+        if (this.findBank(bank.getName()) != null) 
+        {
+            throw new IllegalArgumentException("banknaam bestaat al");
+        }
+        
+        return banken.add(bank);
     }
     
+    /**
+     * Verwijder bank van list of IBanks
+     * @param bank, not null
+     * @return verwijderen geslaagd
+     */
     @Override
     public boolean removeBank(IBank bank)
     {
-        if (bank != null)
+        if (bank == null)
         {
-            return banken.remove(bank);
+            throw new IllegalArgumentException("bank is null");
         }
         
-        return false;
+        IBank b = this.findBank(bank.getName());
+        
+        return banken.remove(b);
     }
     
+    /**
+     * Get alle banken geregistreerd bij de Centrale
+     * @return list van IBanks
+     */    
     @Override
     public ArrayList<IBank> getBanken()
     {
         return this.banken;
     }
 
+    /**
+     * Get IBank met ingegeven naam
+     * @param naam, not empty
+     * @return IBank met naam, null wanneer deze niet gevonden wordt
+     */
     @Override
     public IBank getBank(String naam)
     {
         IBank bank = null;
         
-        if (naam != "" && naam != null)
+        if (naam == null || naam.isEmpty()) 
         {
-            for (IBank b : banken)
-            {
-                if (b.getName().toLowerCase().equals(naam.toLowerCase()))
-                {
-                    bank = b;
-                }
-            }
+            throw new IllegalArgumentException("naam empty or null");
         }
         
-        return bank;
+        return this.findBank(naam);
     }     
 }
