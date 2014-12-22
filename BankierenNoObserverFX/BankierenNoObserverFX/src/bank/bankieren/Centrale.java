@@ -10,16 +10,27 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Melanie
+ * @author Melanie / Alexander
  */
 public class Centrale implements ICentrale
 {
+    private static Centrale instance = null;
+    
     private ArrayList<IBank> banken;
     
-    public Centrale()
+    private Centrale()
     {
         banken = new ArrayList<>();
-    }   
+    } 
+    
+    public static Centrale getInstance() 
+    {
+        if(instance == null) 
+        {
+            instance = new Centrale();
+        }
+        return instance;
+    }
     
     /**
      * Voeg bank toe aan list of IBanks
