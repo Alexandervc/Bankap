@@ -81,7 +81,17 @@ public class Bank implements IBank {
 			return false;
                 }
 
-		IRekeningTbvBank dest_account = (IRekeningTbvBank) getRekening(destination);
+                
+		IRekeningTbvBank dest_account = null;
+                
+                try
+                {
+                    dest_account = (IRekeningTbvBank) getRekening(destination);
+                }
+                catch (Exception ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
                 
 		if (dest_account == null) 
                 {
