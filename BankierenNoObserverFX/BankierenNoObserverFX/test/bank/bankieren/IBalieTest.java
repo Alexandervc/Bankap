@@ -33,19 +33,9 @@ public class IBalieTest
     String acc2;
     String ww2;
     
-    public IBalieTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
-    public void setUp() throws RemoteException {
+    public void setUp() throws RemoteException
+    {
         bank = new Bank("MAMBank");
         this.balie = new Balie(bank);
         
@@ -58,10 +48,6 @@ public class IBalieTest
         acc2 = balie.openRekening(klant2.getNaam(), klant2.getPlaats(), ww2);
     }
     
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test de constructor van balie
      * @throws RemoteException wanneer er iets misgaat met de RMI - dit is niet relevant tot het testen van het systeem
@@ -73,15 +59,16 @@ public class IBalieTest
         assertNotNull("Balie mag niet null zijn", this.balie);
         
         // null waarde voor naam
-        try {
+        try
+        {
             IBalie balie1 = new Balie(null);
             System.out.println("Balie is aangemaakt ondanks foutieve null-waarde");
             fail();
-        } catch(IllegalArgumentException e) {
         }
-        
-    }
-    
+        catch(IllegalArgumentException e)
+        {
+        }        
+    }    
     
     // Alexander
     @Test
@@ -91,11 +78,13 @@ public class IBalieTest
         String plaats;
         String wachtwoord;
         String acc;
-//   * creatie van een nieuwe bankrekening; het gegenereerde bankrekeningnummer is
-//   * identificerend voor de nieuwe bankrekening en heeft een saldo van 0 euro
-//   * @return en anders de gegenereerde 
-//   * accountnaam(8 karakters lang) waarmee er toegang tot de nieuwe bankrekening
-//   * kan worden verkregen
+        
+        // * creatie van een nieuwe bankrekening; het gegenereerde bankrekeningnummer is
+        // * identificerend voor de nieuwe bankrekening en heeft een saldo van 0 euro
+        // * @return en anders de gegenereerde 
+        // * accountnaam(8 karakters lang) waarmee er toegang tot de nieuwe bankrekening
+        // * kan worden verkregen
+        
         naam = "Trixy";
         plaats = "Lutjebroek";
         wachtwoord = "geheim";
@@ -106,12 +95,13 @@ public class IBalieTest
         assertNotNull("normaal, acc null", acc);
         assertEquals("normaal, acc niet 8 karakters", acc.length(), 8);
         
-//   * @param naam van de eigenaar van de nieuwe bankrekening
-//   * @param plaats de woonplaats van de eigenaar van de nieuwe bankrekening
-//   * @param wachtwoord van het account waarmee er toegang kan worden verkregen 
-//   * tot de nieuwe bankrekening
-//   * @return null zodra naam of plaats een lege string of wachtwoord minder dan 
-//   * vier of meer dan acht karakters lang is 
+        // * @param naam van de eigenaar van de nieuwe bankrekening
+        // * @param plaats de woonplaats van de eigenaar van de nieuwe bankrekening
+        // * @param wachtwoord van het account waarmee er toegang kan worden verkregen 
+        // * tot de nieuwe bankrekening
+        // * @return null zodra naam of plaats een lege string of wachtwoord minder dan 
+        // * vier of meer dan acht karakters lang is 
+        
         // null naam
         plaats = "Eindhoven";
         wachtwoord = "geheim";
@@ -199,8 +189,7 @@ public class IBalieTest
         // Rekening en reknr en saldo niet op te halen?
         assertNotNull("wachtwoord 8, acc null", acc);
         assertEquals("wachtwoord 8, acc niet 8 karakters", acc.length(), 8);
-    }            
-    
+    }    
     
     // Alexander
     @Test
@@ -210,11 +199,13 @@ public class IBalieTest
         String ww;
         IBankiersessie sessie;
         IKlant eigenaar;
-//   * er wordt een sessie opgestart voor het login-account met de naam
-//   * accountnaam mits het wachtwoord correct is
-//   * @return de gegenereerde sessie waarbinnen de gebruiker 
-//   * toegang krijgt tot de bankrekening die hoort bij het betreffende login-
-//   * account mits accountnaam en wachtwoord matchen, anders null
+        
+        // * er wordt een sessie opgestart voor het login-account met de naam
+        // * accountnaam mits het wachtwoord correct is
+        // * @return de gegenereerde sessie waarbinnen de gebruiker 
+        // * toegang krijgt tot de bankrekening die hoort bij het betreffende login-
+        // * account mits accountnaam en wachtwoord matchen, anders null
+        
         // wachtwoord correct
         acc = acc1;
         ww = ww1;
@@ -251,8 +242,9 @@ public class IBalieTest
         
         assertNull("niet bestaande inlognaam, sessie not null", sessie);
         
-//   * @param accountnaam
-//   * @param wachtwoord
+        // * @param accountnaam
+        // * @param wachtwoord
+        
         // accountnaam null
         ww = ww1;
         

@@ -6,7 +6,9 @@
 
 package bank.bankieren;
 
+import bank.internettoegang.Balie;
 import bank.internettoegang.Bankiersessie;
+import bank.internettoegang.IBalie;
 import bank.internettoegang.IBankiersessie;
 import fontys.util.InvalidSessionException;
 import fontys.util.NumberDoesntExistException;
@@ -23,6 +25,7 @@ public class IBankiersessieTest
 {
     IBankiersessie sessie;
     IBank bank;
+    IBalie balie;
     IKlant klant1;
     IKlant klant2;
     IRekening rek1;
@@ -33,8 +36,10 @@ public class IBankiersessieTest
     long time;
     
     @Before
-    public void setUp() throws RemoteException {
+    public void setUp() throws RemoteException
+    {
         bank = new Bank("MAMBank");
+        balie = new Balie(bank);
 
         klant1 = new Klant("Trixy", "Lutjebroek");
         reknr1 = bank.openRekening(klant1.getNaam(), klant1.getPlaats());
@@ -44,7 +49,7 @@ public class IBankiersessieTest
         reknr2 = bank.openRekening(klant2.getNaam(), klant2.getPlaats());
         rek2 = bank.getRekening(reknr2);
         
-        sessie = new Bankiersessie(reknr1, bank);  
+        sessie = new Bankiersessie(balie, reknr1, bank);  
         GELDIGHEIDSDUUR = 60000; 
         time = 0;
     }
@@ -67,25 +72,34 @@ public class IBankiersessieTest
         bank1 = new Bank("Bank");
         rekeningnummer = 0;
         
-        sessie1 = new Bankiersessie(rekeningnummer, bank1);
+        sessie1 = new Bankiersessie(balie, rekeningnummer, bank1);
         assertNotNull("Balie is niet aangemaakt ondanks correcte waarde", sessie1);
         
         // Negatief rekeningnummer 
         bank1 = new Bank("Bank");
         rekeningnummer = -1;
         
-        try{
-            sessie1 = new Bankiersessie(rekeningnummer, bank1);
+        try
+        {
+            sessie1 = new Bankiersessie(balie, rekeningnummer, bank1);
             assertNull("Bankiersessie is aangemaakt ondanks een negatief rekeningnummer", sessie1);
-        } catch(IllegalArgumentException e) {}
+        }
+        catch(IllegalArgumentException e)
+        {
+        }
+        
         // Bank is null
         bank1 = null;
         rekeningnummer = 0;
         
-        try {
-            sessie1 = new Bankiersessie(rekeningnummer, bank1);
+        try
+        {
+            sessie1 = new Bankiersessie(balie, rekeningnummer, bank1);
             assertNull("Bankiersessie is aangemaakt ondanks een null-waarde voor bank", sessie1);   
-        } catch(IllegalArgumentException e) {}
+        }
+        catch(IllegalArgumentException e)
+        {
+        }
         
         // Kijk na of rekening klopt
         IRekening rekeningnummer1 = this.bank.getRekening(reknr1);
@@ -95,12 +109,10 @@ public class IBankiersessieTest
     @Test //Melanie
     public void testIsGeldig() throws RemoteException, InvalidSessionException, InterruptedException, NumberDoesntExistException
     {        
-//        /**
-//	 * @returns true als de laatste aanroep van getRekening of maakOver voor deze
-//	 *          sessie minder dan GELDIGHEIDSDUUR geleden is
-//	 *          en er geen communicatiestoornis in de tussentijd is opgetreden, 
-//	 *          anders false
-//	 */               
+        // * @returns true als de laatste aanroep van getRekening of maakOver voor deze
+        // *          sessie minder dan GELDIGHEIDSDUUR geleden is
+        // *          en er geen communicatiestoornis in de tussentijd is opgetreden, 
+        // *          anders false             
         
         //Direct na getRekening()
         IRekening rek = sessie.getRekening();
@@ -114,14 +126,7 @@ public class IBankiersessieTest
         assertTrue("Tijd na aanroep langer dan geldigheidsduur", isgeldig);
         
         //Na wachttijd langer dan geldigheidsduur
-        //wait(GELDIGHEIDSDUUR + 100);
-        time = System.currentTimeMillis();
-        long count = 0;
-        
-        while (count < (GELDIGHEIDSDUUR + 1000))
-        {
-            count = System.currentTimeMillis() - time;
-        }        
+        Thread.sleep(GELDIGHEIDSDUUR + 1000);     
         
         isgeldig = sessie.isGeldig();
         assertFalse("Tijd na aanroep korter dan geldigheidsduur", isgeldig);
@@ -130,28 +135,24 @@ public class IBankiersessieTest
     @Test //Melanie
     public void testMaakOver() throws NumberDoesntExistException, InterruptedException, RemoteException
     {       
-//        /**
-//	 * er wordt bedrag overgemaakt van de bankrekening met het nummer bron naar
-//	 * de bankrekening met nummer bestemming
-//	 * 
+        // * er wordt bedrag overgemaakt van de bankrekening met het nummer bron naar
+        // * de bankrekening met nummer bestemming
         
         Money bedrag = new Money(1200, Money.EURO);
         
-//        /**
-//	 * er wordt bedrag overgemaakt van de bankrekening met het nummer bron naar
-//	 * de bankrekening met nummer bestemming
-//	 * 
-//	 * @param bron
-//	 * @param bestemming
-//	 *            is ongelijk aan rekeningnummer van deze bankiersessie
-//	 * @param bedrag
-//	 *            is groter dan 0
-//	 * @return <b>true</b> als de overmaking is gelukt, anders <b>false</b>
-//	 * @throws NumberDoesntExistException
-//	 *             als bestemming onbekend is
-//	 * @throws InvalidSessionException
-//	 *             als sessie niet meer geldig is 
-//	 */
+        // * er wordt bedrag overgemaakt van de bankrekening met het nummer bron naar
+        // * de bankrekening met nummer bestemming
+        // * 
+        // * @param bron
+        // * @param bestemming
+        // *            is ongelijk aan rekeningnummer van deze bankiersessie
+        // * @param bedrag
+        // *            is groter dan 0
+        // * @return <b>true</b> als de overmaking is gelukt, anders <b>false</b>
+        // * @throws NumberDoesntExistException
+        // *             als bestemming onbekend is
+        // * @throws InvalidSessionException
+        // *             als sessie niet meer geldig is 
         
         // geldige waarden        
         boolean gelukt = bank.maakOver(reknr1, reknr2, bedrag);
@@ -245,15 +246,7 @@ public class IBankiersessieTest
         }
         
         //Na wachttijd langer dan geldigheidsduur
-        //wait(GELDIGHEIDSDUUR + 100);
         Thread.sleep(GELDIGHEIDSDUUR + 1000);
-//        time = System.currentTimeMillis();
-//        long count = 0;
-//        
-//        while (count < (GELDIGHEIDSDUUR + 1000))
-//        {
-//            count = System.currentTimeMillis() - time;
-//        }
         
         boolean isgeldig = sessie.isGeldig();
         assertFalse("Tijd na aanroep korter dan geldigheidsduur", isgeldig);
@@ -262,9 +255,7 @@ public class IBankiersessieTest
     @Test //Melanie
     public void testLogUit() throws InvalidSessionException, RemoteException
     {
-//       /**
-//	 * sessie wordt beeindigd
-//	 */
+        // * sessie wordt beeindigd
         
         //Geldige sessie
         IRekening rek = sessie.getRekening();
