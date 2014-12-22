@@ -47,4 +47,10 @@ public interface ICentrale
      * @return IBank die rekeningnr bevat, null wanneer deze niet gevonden wordt
      */
     public IBank getBank(int rekeningnr);
+    
+    /**
+     * Get volgend nieuw rekeningnr
+     * @return nieuwe rekeningnr
+     */
+    public int getNextRekeningNr();
 }

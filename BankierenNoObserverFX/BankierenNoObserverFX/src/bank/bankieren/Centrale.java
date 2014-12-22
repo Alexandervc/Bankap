@@ -17,10 +17,12 @@ public class Centrale implements ICentrale
     private static Centrale instance = null;
     
     private ArrayList<IBank> banken;
+    private int nieuwReknr;
     
     private Centrale()
     {
         banken = new ArrayList<>();
+        nieuwReknr = 100000000;
     } 
     
     public static Centrale getInstance() 
@@ -126,5 +128,13 @@ public class Centrale implements ICentrale
         }
         
         return bank;
+    }
+
+    @Override
+    public synchronized int getNextRekeningNr()
+    {
+        int rekeningnr = nieuwReknr;
+        nieuwReknr++;
+        return rekeningnr;
     }
 }

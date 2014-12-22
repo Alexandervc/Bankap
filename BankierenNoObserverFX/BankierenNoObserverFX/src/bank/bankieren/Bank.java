@@ -29,6 +29,7 @@ public class Bank implements IBank {
 			return -1;
 
 		IKlant klant = getKlant(name, city);
+                nieuwReknr = centrale.getNextRekeningNr();
 		IRekeningTbvBank account = new Rekening(nieuwReknr, klant, Money.EURO);
 		accounts.put(nieuwReknr,account);
 		nieuwReknr++;
