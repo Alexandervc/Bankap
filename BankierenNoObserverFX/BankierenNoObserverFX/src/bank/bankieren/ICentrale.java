@@ -40,4 +40,11 @@ public interface ICentrale
      * @return IBank met naam, null wanneer deze niet gevonden wordt
      */
     public IBank getBank(String naam);
+    
+    /**
+     * Get IBank met ingegeven rekeningnr
+     * @param rekeningnr > 0
+     * @return IBank die rekeningnr bevat, null wanneer deze niet gevonden wordt
+     */
+    public IBank getBank(int rekeningnr);
 }

@@ -95,4 +95,25 @@ public class Centrale implements ICentrale
         
         return bank;
     }     
+
+    @Override
+    public IBank getBank(int rekeningnr)
+    {
+        IBank bank = null;
+        
+        if (rekeningnr <= 0)
+        {
+            throw new IllegalArgumentException("rekeningnr niet geldig");
+        }
+        
+        for(IBank b : this.banken)
+        {
+            if (b.getRekening(rekeningnr) != null)
+            {
+                bank = b;
+            }
+        }
+        
+        return bank;
+    }
 }
