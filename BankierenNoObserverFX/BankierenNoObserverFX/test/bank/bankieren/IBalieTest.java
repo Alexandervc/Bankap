@@ -273,4 +273,16 @@ public class IBalieTest
         
         assertNull("ww empty, sessie not null", sessie);
     }
+    
+    //TODO: Mickey
+    @Test
+    public void testGetBankiersessie(int reknr) {
+        /**
+   * 
+   * @param reknr
+   * @return indien beschikbaar de bankiersessie met het het gegeven
+   * rekeningnummer, anders null
+   * @throws RemoteException 
+   */
+    }
 }

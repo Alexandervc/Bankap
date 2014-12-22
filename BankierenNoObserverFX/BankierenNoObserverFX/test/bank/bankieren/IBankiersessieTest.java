@@ -264,4 +264,13 @@ public class IBankiersessieTest
         sessie.logUit();        
         //Niet te testen zonder RMI
     }
+    
+    //TODO: Mickey
+    @Test
+    public void push() {
+        /**
+         * Pusht de nieuwe rekening naar de geabonneerde listeners
+         * @throws RemoteException 
+         */
+    }
 }
