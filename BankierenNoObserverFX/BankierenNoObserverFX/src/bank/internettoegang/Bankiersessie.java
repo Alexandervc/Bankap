@@ -1,5 +1,6 @@
 package bank.internettoegang;
 
+import bank.bankieren.Centrale;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -59,6 +60,12 @@ public class Bankiersessie extends UnicastRemoteObject implements
                     this.push();
                     // inform bestemming
                     IBankiersessie b = this.balie.getBankiersessie(bestemming);
+                    if(b == null) {
+                        IBalie balieBestemming = Centrale.getInstance().getBalie(bestemming);
+                        if(balieBestemming != null) {
+                            b = balieBestemming.getBankiersessie(bestemming);
+                        }
+                    }
                     if(b != null) {
                         b.push();
                     }

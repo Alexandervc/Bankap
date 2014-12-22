@@ -6,6 +6,7 @@
 
 package bank.bankieren;
 
+import bank.internettoegang.IBalie;
 import java.util.ArrayList;
 
 /**
@@ -15,22 +16,22 @@ import java.util.ArrayList;
 public interface ICentrale
 {    
     /**
-     * Voeg bank toe aan list of IBanks
-     * @param bank, not null, naam bestaat nog niet
+     * Voeg balie toe aan list of IBalies
+     * @param balie, not null, naam bank bestaat nog niet
      * @return toevoegen geslaagd
      */
-    public boolean addBank(IBank bank);
+    public boolean addBalie(IBalie balie);
     
     /**
-     * Verwijder bank van list of IBanks
-     * @param bank, not null
+     * Verwijder balie van list of IBalies
+     * @param balie, not null
      * @return verwijderen geslaagd
      */
-    public boolean removeBank(IBank bank);
+    public boolean removeBalie(IBalie balie);
     
     /**
      * Get alle banken geregistreerd bij de Centrale
-     * @return list van IBanks
+     * @return list van IBank
      */
     public ArrayList<IBank> getBanken();
     
@@ -47,6 +48,13 @@ public interface ICentrale
      * @return IBank die rekeningnr bevat, null wanneer deze niet gevonden wordt
      */
     public IBank getBank(int rekeningnr);
+    
+    /**
+     * Get IBalie met ingegeven rekeningnr
+     * @param rekeningnr > 0
+     * @return IBalie die rekeningnr bevat, null wanneer deze niet gevonden wordt
+     */
+    public IBalie getBalie(int rekeningnr);
     
     /**
      * Get volgend nieuw rekeningnr

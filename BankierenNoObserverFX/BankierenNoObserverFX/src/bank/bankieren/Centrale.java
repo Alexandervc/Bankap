@@ -6,7 +6,10 @@
 
 package bank.bankieren;
 
+import bank.internettoegang.Balie;
+import bank.internettoegang.IBalie;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,12 +19,12 @@ public class Centrale implements ICentrale
 {
     private static Centrale instance = null;
     
-    private ArrayList<IBank> banken;
+    private ArrayList<Balie> balies;
     private int nieuwReknr;
     
     private Centrale()
     {
-        banken = new ArrayList<>();
+        balies = new ArrayList<>();
         nieuwReknr = 100000000;
     } 
     
@@ -35,54 +38,61 @@ public class Centrale implements ICentrale
     }
     
     /**
-     * Voeg bank toe aan list of IBanks
-     * @param bank, not null, naam bestaat nog niet
+     * Voeg balie toe aan list of IBalies
+     * @param balie, not null, naam bank bestaat nog niet
      * @return toevoegen geslaagd
      */
     @Override
-    public boolean addBank(IBank bank)
+    public boolean addBalie(IBalie balie)
     {
-        if (bank == null )
+        if (balie == null )
         {
-            throw new IllegalArgumentException("bank is null");
+            throw new IllegalArgumentException("balie is null");
         }
+        Balie b = (Balie) balie;
         
-        if (this.getBank(bank.getName()) != null) 
+        if (this.getBank(b.getBank().getName()) != null) 
         {
             throw new IllegalArgumentException("banknaam bestaat al");
         }
         
-        return banken.add(bank);
+        return balies.add(b);
     }
     
     /**
-     * Verwijder bank van list of IBanks
-     * @param bank, not null
+     * Verwijder balie van list of IBalies
+     * @param balie, not null
      * @return verwijderen geslaagd
      */
     @Override
-    public boolean removeBank(IBank bank)
+    public boolean removeBalie(IBalie balie)
     {
-        if (bank == null)
+        if (balie == null)
         {
-            throw new IllegalArgumentException("bank is null");
+            throw new IllegalArgumentException("balie is null");
         }
         
-        IBank b = this.getBank(bank.getName());
+        Balie b = (Balie) balie;
+        Balie bToRemove = this.getBalie(b.getBank().getName());
         
-        return banken.remove(b);
+        return balies.remove(bToRemove);
     }
     
     /**
      * Get alle banken geregistreerd bij de Centrale
-     * @return list van IBanks
-     */    
+     * @return list van IBank
+     */
     @Override
     public ArrayList<IBank> getBanken()
     {
-        return this.banken;
+        ArrayList<IBank> banken = new ArrayList<>();
+        for(Balie b : this.balies) 
+        {
+            banken.add(b.getBank());
+        }
+        return banken;
     }
-
+    
     /**
      * Get IBank met ingegeven naam
      * @param naam, not empty
@@ -98,17 +108,22 @@ public class Centrale implements ICentrale
             throw new IllegalArgumentException("naam empty or null");
         }
         
-        for(IBank b : this.banken) 
+        for(Balie b : this.balies) 
         {
-            if(b.getName().toLowerCase().equals(naam.toLowerCase())) 
+            if(b.getBank().getName().toLowerCase().equals(naam.toLowerCase())) 
             {
-                bank = b;
+                bank = b.getBank();
             }
         }
         
         return bank;
-    }     
-
+    }
+    
+    /**
+     * Get IBank met ingegeven rekeningnr
+     * @param rekeningnr > 0
+     * @return IBank die rekeningnr bevat, null wanneer deze niet gevonden wordt
+     */
     @Override
     public IBank getBank(int rekeningnr)
     {
@@ -119,17 +134,66 @@ public class Centrale implements ICentrale
             throw new IllegalArgumentException("rekeningnr niet geldig");
         }
         
-        for(IBank b : this.banken)
+        for(Balie b : this.balies)
         {
-            if (b.getRekening(rekeningnr) != null)
+            if (b.getBank().getRekening(rekeningnr) != null)
             {
-                bank = b;
+                bank = b.getBank();
             }
         }
         
         return bank;
     }
-
+    
+    /**
+     * Get IBalie met ingegeven rekeningnr
+     * @param rekeningnr > 0
+     * @return IBalie die rekeningnr bevat, null wanneer deze niet gevonden wordt
+     */
+    @Override
+    public IBalie getBalie(int rekeningnr)
+    {
+        IBalie balie = null;
+        
+        if (rekeningnr <= 0)
+        {
+            throw new IllegalArgumentException("rekeningnr niet geldig");
+        }
+        
+        for(Balie b : this.balies)
+        {
+            if (b.getBank().getRekening(rekeningnr) != null)
+            {
+                balie = (IBalie) b;
+            }
+        }
+        
+        return balie;
+    }
+    
+    private Balie getBalie(String naam) {
+        Balie balie = null;
+        
+        if (naam == null || naam.isEmpty()) 
+        {
+            throw new IllegalArgumentException("naam empty or null");
+        }
+        
+        for(Balie b : this.balies) 
+        {
+            if(b.getBank().getName().toLowerCase().equals(naam.toLowerCase())) 
+            {
+                balie = b;
+            }
+        }
+        
+        return balie;
+    }
+    
+    /**
+     * Get volgend nieuw rekeningnr
+     * @return nieuwe rekeningnr
+     */
     @Override
     public synchronized int getNextRekeningNr()
     {

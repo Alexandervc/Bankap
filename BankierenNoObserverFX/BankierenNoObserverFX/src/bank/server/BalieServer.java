@@ -81,8 +81,8 @@ public class BalieServer extends Application {
                 
                 try {
                     IBank newBank = new Bank(nameBank);
-                    this.centrale.addBank(newBank);
                     IBalie balie = new Balie(newBank);
+                    this.centrale.addBalie(balie);
                     this.registry.rebind(nameBank, balie);
                 } catch (IllegalArgumentException ex) {
                     System.out.println("Kan bank niet toevoegen: " + ex.getMessage());
