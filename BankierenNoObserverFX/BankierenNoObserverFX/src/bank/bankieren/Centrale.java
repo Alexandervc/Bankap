@@ -19,18 +19,7 @@ public class Centrale implements ICentrale
     public Centrale()
     {
         banken = new ArrayList<>();
-    }    
-    
-    private IBank findBank(String naam) {
-        for(IBank b : this.banken) 
-        {
-            if(b.getName().toLowerCase().equals(naam.toLowerCase())) 
-            {
-                return b;
-            }
-        }
-        return null;
-    }
+    }   
     
     /**
      * Voeg bank toe aan list of IBanks
@@ -45,7 +34,7 @@ public class Centrale implements ICentrale
             throw new IllegalArgumentException("bank is null");
         }
         
-        if (this.findBank(bank.getName()) != null) 
+        if (this.getBank(bank.getName()) != null) 
         {
             throw new IllegalArgumentException("banknaam bestaat al");
         }
@@ -66,7 +55,7 @@ public class Centrale implements ICentrale
             throw new IllegalArgumentException("bank is null");
         }
         
-        IBank b = this.findBank(bank.getName());
+        IBank b = this.getBank(bank.getName());
         
         return banken.remove(b);
     }
@@ -96,6 +85,14 @@ public class Centrale implements ICentrale
             throw new IllegalArgumentException("naam empty or null");
         }
         
-        return this.findBank(naam);
+        for(IBank b : this.banken) 
+        {
+            if(b.getName().toLowerCase().equals(naam.toLowerCase())) 
+            {
+                bank = b;
+            }
+        }
+        
+        return bank;
     }     
 }
