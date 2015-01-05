@@ -230,7 +230,7 @@ public class IBankiersessieTest
             System.out.println("Onjuist rekeningnummer bestemming");
         }
         catch(NullPointerException ex) {
-            System.out.println(ex.toString());
+            System.out.println("Maak over caused a nullpointer exception");
         }
         
         // kredietlimiet overschreden
@@ -322,6 +322,6 @@ public class IBankiersessieTest
         newk2 = s2.getRekening().getSaldo();
         
         assertFalse("Het geld is niet afgeschreven van de hoofdrekening", oldk1.equals(newk1));
-        assertFalse("Er is geen geld bijgeschreven bij de tegenrekening", oldk2.equals(newk2));           
+        assertFalse("Er is geen geld bijgeschreven bij de tegenrekening", oldk2.equals(newk2));            
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="MirataPC" name="bank.bankieren.IBankiersessieTest" skipped="0" tests="5" time="122.266" timestamp="2015-01-05T01:17:30">
+<testsuite errors="1" failures="0" hostname="MirataPC" name="bank.bankieren.IBankiersessieTest" skipped="0" tests="5" time="122.384" timestamp="2015-01-05T08:29:31">
   <properties>
     <property name="netbeans.autoupdate.country" value="US" />
     <property name="javafx.binarycss" value="false" />
@@ -45,7 +45,7 @@
     <property name="user.name" value="Mickey" />
     <property name="copylibs.rebase" value="true" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner bank.bankieren.IBankiersessieTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\test\results\TEST-bank.bankieren.IBankiersessieTest.xml crashfile=E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\junitvmwatcher3651452724967292744.properties propsfile=E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\junit9195919276984285527.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner bank.bankieren.IBankiersessieTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\test\results\TEST-bank.bankieren.IBankiersessieTest.xml crashfile=E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\junitvmwatcher5298690344430496153.properties propsfile=E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\junit4988381458590705822.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -81,7 +81,7 @@
     <property name="javac.debug" value="true" />
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
-    <property name="javac.includesfile.binary" value="E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\null544920237" />
+    <property name="javac.includesfile.binary" value="E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\null523113777" />
     <property name="file.reference.FontysObserver.jar" value="..\FontysObserver.jar" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="ant.file.type.BankierenNoObserverFX-impl" value="file" />
@@ -183,7 +183,6 @@
     <property name="sun.java2d.noddraw" value="true" />
     <property name="javac.processorpath" value="C:\Program Files\Java\jdk1.8.0_25\jre/lib/javaws.jar:C:\Program Files\Java\jdk1.8.0_25\jre/lib/deploy.jar:C:\Program Files\Java\jdk1.8.0_25\jre/lib/plugin.jar:..\FontysObserver.jar" />
     <property name="javac.compilerargs" value="" />
-    <property name="svnkit.http.methods" value="Basic" />
     <property name="ant.file" value="E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build.xml" />
     <property name="libs.beans-binding.maven-pom" value="" />
     <property name="libs.hibernate4-support.javadoc" value="" />
@@ -302,8 +301,8 @@
     <property name="libs.absolutelayout.classpath" value="C:\Program Files\NetBeans 8.0\java\modules\ext\AbsoluteLayout.jar" />
     <property name="excludes" value="" />
     <property name="libs.jpa2-persistence.javadoc" value="" />
-    <property name="apple.laf.useScreenMenuBar" value="true" />
     <property name="java.class.path" value="C:\Program Files\Java\jdk1.8.0_25\jre\lib\javaws.jar;C:\Program Files\Java\jdk1.8.0_25\jre\lib\deploy.jar;C:\Program Files\Java\jdk1.8.0_25\jre\lib\plugin.jar;E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\FontysObserver.jar;E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\classes;C:\Program Files\NetBeans 8.0\platform\modules\ext\junit-4.10.jar;E:\School\GSO32\BankAppV5\Bankap\BankierenNoObserverFX\BankierenNoObserverFX\build\test\classes;C:\Program Files\NetBeans 8.0\extide\ant\lib\ant-launcher.jar;C:\Program Files\NetBeans 8.0\extide\ant\lib\ant.jar;C:\Program Files\NetBeans 8.0\extide\ant\lib\ant-junit.jar;C:\Program Files\NetBeans 8.0\extide\ant\lib\ant-junit4.jar" />
+    <property name="apple.laf.useScreenMenuBar" value="true" />
     <property name="libs.absolutelayout.src" value="" />
     <property name="libs.jpa20-persistence.classpath" value="C:\Program Files\NetBeans 8.0\java\modules\ext\eclipselink\javax.persistence_2.1.0.v201304241213.jar" />
     <property name="os.version" value="6.3" />
@@ -333,8 +332,8 @@
     <property name="libs.junit.src" value="" />
     <property name="annotation.processing.source.output" value="build/generated-sources/ap-source-output" />
     <property name="main.class" value="com.javafx.main.Main" />
-    <property name="libs.CopyLibs.src" value="" />
     <property name="build.dir" value="build" />
+    <property name="libs.CopyLibs.src" value="" />
     <property name="ant.file.type.BankierenFX300" value="file" />
     <property name="ant.version" value="Apache Ant(TM) version 1.9.2 compiled on July 8 2013" />
     <property name="file.encoding" value="Cp1252" />
@@ -344,11 +343,16 @@
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
   </properties>
-  <testcase classname="bank.bankieren.IBankiersessieTest" name="push" time="0.177" />
-  <testcase classname="bank.bankieren.IBankiersessieTest" name="testIsGeldig" time="61.002" />
-  <testcase classname="bank.bankieren.IBankiersessieTest" name="testConctructor" time="0.003" />
-  <testcase classname="bank.bankieren.IBankiersessieTest" name="testLogUit" time="0.002" />
-  <testcase classname="bank.bankieren.IBankiersessieTest" name="testMaakOver" time="61.005" />
+  <testcase classname="bank.bankieren.IBankiersessieTest" name="push" time="0.234">
+    <error message="account 100000003 unknown at BankTest" type="fontys.util.NumberDoesntExistException">fontys.util.NumberDoesntExistException: account 100000003 unknown at BankTest
+	at bank.bankieren.Bank.maakOver(Bank.java:70)
+	at bank.bankieren.IBankiersessieTest.push(IBankiersessieTest.java:332)
+</error>
+  </testcase>
+  <testcase classname="bank.bankieren.IBankiersessieTest" name="testConctructor" time="0.0" />
+  <testcase classname="bank.bankieren.IBankiersessieTest" name="testIsGeldig" time="61.013" />
+  <testcase classname="bank.bankieren.IBankiersessieTest" name="testLogUit" time="0.0" />
+  <testcase classname="bank.bankieren.IBankiersessieTest" name="testMaakOver" time="61.012" />
   <system-out><![CDATA[Rekeningnummers gelijk
 Bedrag is 0
 Bedrag is null
