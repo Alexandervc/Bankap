@@ -75,7 +75,7 @@ public class Balie extends UnicastRemoteObject implements IBalie {
     public IBankiersessie getBankiersessie(int reknr) throws RemoteException {
         for(IBankiersessie s : this.sessions) {
             try {
-                if(s.getRekening().getNr() == reknr) {
+                if(s.getRekening().getNr() == reknr && s.isGeldig()) {
                     return s;
                 }
             } catch (InvalidSessionException ex) {   }

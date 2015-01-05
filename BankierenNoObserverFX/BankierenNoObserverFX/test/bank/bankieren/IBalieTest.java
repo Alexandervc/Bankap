@@ -11,10 +11,7 @@ import bank.internettoegang.IBalie;
 import bank.internettoegang.IBankiersessie;
 import fontys.util.InvalidSessionException;
 import java.rmi.RemoteException;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -276,13 +273,76 @@ public class IBalieTest
     
     //TODO: Mickey
     @Test
-    public void testGetBankiersessie(int reknr) {
+    public void testGetBankiersessie() throws RemoteException, InvalidSessionException {
         /**
-   * 
-   * @param reknr
-   * @return indien beschikbaar de bankiersessie met het het gegeven
-   * rekeningnummer, anders null
-   * @throws RemoteException 
-   */
+        * 
+        * @param reknr
+        * @return indien beschikbaar de bankiersessie met het het gegeven
+        * rekeningnummer, anders null
+        * @throws RemoteException 
+        */
+        String acc1, acc2;
+        String ww1, ww2;
+        IBankiersessie sessie;
+        IBankiersessie sessie1;
+        IBankiersessie sessie2;
+        IKlant eigenaar1;
+        IKlant eigenaar2;
+        
+        // De verkregen sessie komt overeen met de gegeven sessie 
+        acc1 = this.acc1;
+        ww1 = this.ww1;
+        
+        sessie = balie.logIn(acc1, ww1);
+        eigenaar1 = sessie.getRekening().getEigenaar();
+        
+        sessie1 = this.balie.getBankiersessie(sessie.getRekening().getNr());
+        
+        assertTrue("Verkregen sessie komt niet overeen met gegeven sessie", sessie.equals(sessie1));
+        
+        // De verkregen sessie komt niet overeen met de gegeven sessie 
+        
+        acc1 = this.acc1;
+        ww1 = this.ww1;
+        
+        acc2 = this.acc2;
+        ww2 = this.ww2;
+        
+        sessie = balie.logIn(acc1, ww1);
+        eigenaar1 = sessie.getRekening().getEigenaar();
+        
+        sessie1 = balie.logIn(acc2, ww2);
+        
+        sessie2 = this.balie.getBankiersessie(sessie1.getRekening().getNr());
+        
+        assertFalse("Verkregen sessie komt overeen met gegeven sessie", sessie.equals(sessie2));
+        
+        // Null waarde
+        acc1 = this.acc1;
+        ww1 = this.ww1;
+        
+        sessie = balie.logIn(acc1, ww1);
+        eigenaar1 = sessie.getRekening().getEigenaar();
+        
+        sessie = this.balie.getBankiersessie(-5); 
+        assertNull("Met foutief banknummer verkregen Bankiersessie", sessie);
+        
+        // Bankiersessie bestaat niet
+        /*
+        acc1 = this.acc1;
+        ww1 = this.ww1;
+        
+        sessie = balie.logIn(acc1, ww1);
+        eigenaar1 = sessie.getRekening().getEigenaar();
+        
+        System.out.println(sessie);
+        sessie.logUit();
+        System.out.println(sessie);
+        
+        sessie1 = this.balie.getBankiersessie(sessie.getRekening().getNr());
+        
+        assertNull("Sessie kan nog worden opgehaald na het uitloggen", sessie1);
+                */        
+        
     }
 }

@@ -227,6 +227,9 @@ public class IBankTest {
         {
             System.out.println("Onjuist rekeningnummer bestemming");
         }
+        catch(NullPointerException ex) {
+            System.out.println(ex.toString());
+        }
         
         // kredietlimiet overschreden
         int kredietlimiet = rek1.getKredietLimietInCenten();

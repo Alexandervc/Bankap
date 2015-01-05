@@ -16,6 +16,7 @@ import java.rmi.RemoteException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -221,12 +222,15 @@ public class IBankiersessieTest
         // onbekend rekeningnummer klant2        
         try
         {
-            bank.maakOver(reknr1, 2, bedrag);
+            boolean maakOver = bank.maakOver(reknr1, 2, bedrag);
             fail("Onjuist rekeningnummer bestemming");
         }
         catch (NumberDoesntExistException ex)
         {
             System.out.println("Onjuist rekeningnummer bestemming");
+        }
+        catch(NullPointerException ex) {
+            System.out.println(ex.toString());
         }
         
         // kredietlimiet overschreden
@@ -267,10 +271,57 @@ public class IBankiersessieTest
     
     //TODO: Mickey
     @Test
-    public void push() {
+    public void push() throws RemoteException, InvalidSessionException, NumberDoesntExistException {
         /**
          * Pusht de nieuwe rekening naar de geabonneerde listeners
          * @throws RemoteException 
          */
+        
+        IBank bnk;
+        IBalie bl;
+        
+        IKlant k1, k2;
+        
+        String acc1, acc2;
+        String ww1, ww2;
+        
+        IBankiersessie s1, s2;
+        
+        Money oldk1, oldk2;
+        Money newk1, newk2;
+        
+        int rk1, rk2;
+        
+        // Assign values
+        
+        bnk = new Bank("BankTest");
+        bl = new Balie(bank);
+        
+        k1 = new Klant("A", "B");
+        ww1 = "pass1";
+        acc1 = bl.openRekening(k1.getNaam(), k1.getPlaats(), ww1);
+        
+        k2 = new Klant("C", "D");
+        ww2 = "pass2";
+        acc2 = bl.openRekening(k2.getNaam(), k2.getPlaats(), ww2);
+        
+        s1 = bl.logIn(acc1, ww1);
+        s2 = bl.logIn(acc2, ww2);
+        
+        rk1 = s1.getRekening().getNr();
+        rk2 = s2.getRekening().getNr();
+        
+        // Test new k1 with push // k1 changed, k2 changed
+       
+        oldk1 = s1.getRekening().getSaldo();
+        oldk2 = s2.getRekening().getSaldo();
+        
+        s1.maakOver(rk2, new Money(10, Money.EURO));
+        
+        newk1 = s1.getRekening().getSaldo();
+        newk2 = s2.getRekening().getSaldo();
+        
+        assertFalse("Het geld is niet afgeschreven van de hoofdrekening", oldk1.equals(newk1));
+        assertFalse("Er is geen geld bijgeschreven bij de tegenrekening", oldk2.equals(newk2));           
     }
 }
